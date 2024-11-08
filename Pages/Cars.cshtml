@@ -14,48 +14,58 @@
         margin: 0;
     }
 
-    /*td {
-        border: 1px solid #333;
-        padding: 10px;
+    .action-links a {
+        text-decoration: none;
+        color: #333;
     }
 
-    tr {
-        position: relative;
-        
-    }
-
-    thead {
-        background-color: #827a78;
-    }
-
-    th {
-        border: 3px solid #333;
-        padding: 10px;
-    }*/
-
-    .action-links {
-        /*display: flex;
-        justify-content: flex-end;
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);*/
-    }
-
-        .action-links a {
-            text-decoration: none;
-            color: #333;
-            
+        .action-links a:hover {
+            text-decoration: underline;
         }
-
-            .action-links a:hover {
-                text-decoration: underline;
-            }
 
     .new-car-link {
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
         margin-top: 20px;
+    }
+
+    /* Modal styling */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #333;
+        width: 300px;
+        text-align: center;
+    }
+
+    .modal-button {
+        margin: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .confirm {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+    }
+
+    .cancel {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
     }
 </style>
 
@@ -65,63 +75,91 @@
 
         <h1>@ViewData["Title"]</h1>
 
-        <!-- Link to add new car -->
         <div class="new-car-link">
-            <a href="/AddCar" class="btn btn-primary">Pridėti naują automobilį</a>
+            <a href="/AddCar" class="btn btn-secondary" style="margin-right: 1.5rem;">Pridėti naują automobilį</a>
+            <a href="/Filter" class="btn btn-secondary">Filtruoti automobilius</a>
         </div>
 
-        
-            <table cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
-                <thead>
-                <tr >
-                        <th style="background-color: #827a78;border: 2px solid #333;">Markė</th>
-                        <th style="background-color: #827a78;border: 2px solid #333;">Išleidimo metai</th>
-                        <th style="background-color: #827a78;border: 2px solid #333;">Litražas</th>
-                        <th style="background-color: #827a78;border: 2px solid #333;">Kuro tipas</th>
-                        <th style="background-color: #827a78;border: 2px solid #333;">Rida</th>
-                        <th style="background-color: #827a78;border: 2px solid #333;">Įvertinimas</th>
-                        <th style="background-color: #827a78;border: 2px solid #333;">Statusas</th>
-                        <th style="background-color: #827a78;border: 2px solid #333;">Kaina</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">BMW</td>
-                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">2015</td>                    
-                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">2.0</td>
-                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">Dyzelinas</td>
-                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">150000 km</td>
-                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">9/10</td>
-                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">Aktyvus</td>
-                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">€15,000</td>
-                        <td class="action-links">
-                            <b>
-                                <a href="#">Redaguoti</a>
-                                <a href="#">Pašalinti</a>
-                            </b>
-                        </td>
-                    </tr>
-                        <tr >
-                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">Audi</td>
-                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">2018</td>
-                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">1.8</td>
-                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">Benzinas</td>
-                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">80000 km</td>
-                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">8/10</td>
-                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">Aktyvus</td>
-                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">€18,000</td>
-                        <td class="action-links">
-                            <b>
-                                <a href="#">Redaguoti</a>
-                                <a href="#">Pašalinti</a>
-                            </b>
-                        </td>
-                    </tr>
-                    <!-- More rows can be added here -->
-                </tbody>
-            </table>
+
+        <table cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Markė</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Išleidimo metai</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Litražas</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Kuro tipas</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Rida</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Įvertinimas</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Statusas</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Kaina</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Draudimai</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 2px solid #333;">BMW</td>
+                    <td style="border: 2px solid #333;">2015</td>
+                    <td style="border: 2px solid #333;">2.0</td>
+                    <td style="border: 2px solid #333;">Dyzelinas</td>
+                    <td style="border: 2px solid #333;">150000 km</td>
+                    <td style="border: 2px solid #333;">9/10</td>
+                    <td style="border: 2px solid #333;">Aktyvus</td>
+                    <td style="border: 2px solid #333;">€15,000</td>
+                    <td style="border: 2px solid #333;">Privalomas, Kasko</td>
+                    <td class="action-links">
+                        <b>
+                            <a href="/ChangeCar?make=BMW&year=2015&engineSize=2.0&fuelType=Dyzelinas&mileage=150000&grade=9/10&state=Aktyvus&price=15000&insurance=Privalomas, Kasko">Redaguoti</a>
+                            <a href="#" onclick="showModal(event)">Pašalinti</a>
+                        </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid #333;">Audi</td>
+                    <td style="border: 2px solid #333;">2018</td>
+                    <td style="border: 2px solid #333;">1.8</td>
+                    <td style="border: 2px solid #333;">Benzinas</td>
+                    <td style="border: 2px solid #333;">80000 km</td>
+                    <td style="border: 2px solid #333;">8/10</td>
+                    <td style="border: 2px solid #333;">Aktyvus</td>
+                    <td style="border: 2px solid #333;">€18,000</td>
+                    <td style="border: 2px solid #333;">Privalomas</td>
+                    <td class="action-links">
+                        <b>
+                            <a href="/ChangeCar?make=Audi&year=2018&engineSize=1.8&fuelType=Benzinas&mileage=80000&grade=8/10&state=Aktyvus&price=18000&insurance=Privalomas">Redaguoti</a>
+                            <a href="#" onclick="showModal(event)">Pašalinti</a>
+                        </b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
+
+    <!-- Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <p>Ar tikrai norite ištrinti automobilį?</p>
+            <button class="modal-button confirm" onclick="confirmDelete()">Taip</button>
+            <button class="modal-button cancel" onclick="closeModal()">Ne</button>
+        </div>
+    </div>
+
+    <script>
+        function showModal(event) {
+            event.preventDefault();  // Prevents the default link action
+            document.getElementById("confirmModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("confirmModal").style.display = "none";
+        }
+
+        function confirmDelete() {
+            // Add delete logic here (e.g., submit a form, make a DELETE request)
+            closeModal();
+            alert("Automobilis buvo ištrintas.");  // Temporary action
+        }
+    </script>
+
 </body>
