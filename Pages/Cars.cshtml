@@ -1,0 +1,127 @@
+﻿@page
+@model CarsModel
+@{
+    ViewData["Title"] = "Automobilių sąrašas";
+}
+<style>
+    h1 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: left;
+        align-items: start;
+        margin: 0;
+    }
+
+    /*td {
+        border: 1px solid #333;
+        padding: 10px;
+    }
+
+    tr {
+        position: relative;
+        
+    }
+
+    thead {
+        background-color: #827a78;
+    }
+
+    th {
+        border: 3px solid #333;
+        padding: 10px;
+    }*/
+
+    .action-links {
+        /*display: flex;
+        justify-content: flex-end;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);*/
+    }
+
+        .action-links a {
+            text-decoration: none;
+            color: #333;
+            
+        }
+
+            .action-links a:hover {
+                text-decoration: underline;
+            }
+
+    .new-car-link {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+</style>
+
+<body>
+
+    <div class="container-fluid">
+
+        <h1>@ViewData["Title"]</h1>
+
+        <!-- Link to add new car -->
+        <div class="new-car-link">
+            <a href="/AddCar" class="btn btn-primary">Pridėti naują automobilį</a>
+        </div>
+
+        
+            <table cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                <thead>
+                <tr >
+                        <th style="background-color: #827a78;border: 2px solid #333;">Markė</th>
+                        <th style="background-color: #827a78;border: 2px solid #333;">Išleidimo metai</th>
+                        <th style="background-color: #827a78;border: 2px solid #333;">Litražas</th>
+                        <th style="background-color: #827a78;border: 2px solid #333;">Kuro tipas</th>
+                        <th style="background-color: #827a78;border: 2px solid #333;">Rida</th>
+                        <th style="background-color: #827a78;border: 2px solid #333;">Įvertinimas</th>
+                        <th style="background-color: #827a78;border: 2px solid #333;">Statusas</th>
+                        <th style="background-color: #827a78;border: 2px solid #333;">Kaina</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">BMW</td>
+                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">2015</td>                    
+                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">2.0</td>
+                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">Dyzelinas</td>
+                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">150000 km</td>
+                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">9/10</td>
+                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">Aktyvus</td>
+                        <td style="border: 2px solid #333; border-bottom: 2px solid #333;">€15,000</td>
+                        <td class="action-links">
+                            <b>
+                                <a href="#">Redaguoti</a>
+                                <a href="#">Pašalinti</a>
+                            </b>
+                        </td>
+                    </tr>
+                        <tr >
+                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">Audi</td>
+                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">2018</td>
+                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">1.8</td>
+                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">Benzinas</td>
+                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">80000 km</td>
+                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">8/10</td>
+                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">Aktyvus</td>
+                        <td style="border-bottom: 2px solid #333;border: 2px solid #333;">€18,000</td>
+                        <td class="action-links">
+                            <b>
+                                <a href="#">Redaguoti</a>
+                                <a href="#">Pašalinti</a>
+                            </b>
+                        </td>
+                    </tr>
+                    <!-- More rows can be added here -->
+                </tbody>
+            </table>
+
+    </div>
+</body>
