@@ -1,6 +1,67 @@
-# .NET Core specific
+# ASP.NET Core specific files
+
+# Output directories
 bin/
 obj/
+
+# ASP.NET user secrets
+**/secrets.json
+
+# Environment-specific config files
+appsettings.Development.json
+appsettings.Local.json
+# (Keep appsettings.json tracked to allow default configuration sharing)
+
+# IDE and Editor Specific
+
+# Visual Studio
+.vs/
+
+# Visual Studio Code
+.vscode/
+.vscode/*
+
+# Rider / JetBrains
+.idea/
+
+# Backup, temporary, and log files
+*.log
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+
+# OS-specific files
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*.swp
+*.swo
+*~
+
+# Optional if using Node.js or frontend frameworks
+node_modules/
+dist/
+public/
+# (These are common for JavaScript/CSS dependencies or bundling)
+
+# Dependencies, package caches, and build artifacts
+
+# NuGet packages (if storing locally or using local cache)
+*.nupkg
+*.snupkg
+
+# DotNet local build artifacts
 *.dll
 *.exe
 *.app
@@ -8,72 +69,8 @@ obj/
 *.dylib
 *.pdb
 *.db
-*.log
-*.vspscc
-*.vssscc
-
-# User-specific files
-*.user
-*.userosscache
-*.suo
-*.sln.docstates
-
-# Mono Auto Generated Files
-mono_crash.*
-
-# ASP.NET Scaffolding
-ScaffoldingReadMe.txt
-
-# Mac files
-.DS_Store
-*.DS_Store
-
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# VS Code files
-.vscode/
-.vscode/*
-
-# Rider and JetBrains specific
-.idea/
-*.sln.iml
-
-# Visual Studio working directory
-.vs/
-
-# ASP.NET Core Secrets
-**/secrets.json
-
-# Web.config and other environment-specific config files (Optional)
-# If you use Web.config or any environment-specific configuration files, you can ignore them
-# If you use configuration transformations, add them to version control
-appsettings.Development.json
-appsettings.Local.json
-
-# NPM packages (if using Node.js for frontend assets)
-node_modules/
-
-# Yarn
-.yarn/
-.yarnrc.yml
-
-# Log files
-*.log
-
-# Generated Files (from tools like Swagger)
-wwwroot/swagger/
 
 # Publish output
-wwwroot/
-dist/
 publish/
 out/
 
@@ -81,47 +78,5 @@ out/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 
-# Backup files
-*.bak
-*.old
-*.orig
-*.tmp
-
-# NuGet packages
-*.nupkg
-# The packages folder can be ignored when not building packages locally
-**/packages/*
-# Uncomment if necessary however generally it will be downloaded automatically with the .csproj file.
-# **/packages/
-
-# Entity Framework
-.migrations/
-
-# Windows
-*.manifest
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-*.pdb
-[Dd]ebug/
-[Rr]elease/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-
-# Linux
-*.swp
-*.swo
-*~
-
-# Publish output
-**/publish/
-**/out/
-
-# Local history for IDEs
-.history/
-
-# Optional: Uncomment if you use dotenv for environment variables
+# Uncomment if using dotenv for environment variables
 # .env

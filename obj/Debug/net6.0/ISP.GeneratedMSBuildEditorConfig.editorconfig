@@ -9,49 +9,51 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ISP
 build_property.RootNamespace = ISP
-build_property.ProjectDir = C:\Users\as\Desktop\ISP\
+build_property.ProjectDir = C:\Users\Bryan\Documents\KTU\ISP\ISP\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\as\Desktop\ISP
+build_property.MSBuildProjectDirectory = C:\Users\Bryan\Documents\KTU\ISP\ISP
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/as/Desktop/ISP/Pages/AddCar.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/AddCar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkQ2FyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/Cars.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/Cars.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2Fycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/ChangeCar.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/ChangeCar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhbmdlQ2FyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/Error.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/Filter.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/Filter.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/Index.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/_ViewImports.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/_ViewStart.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/as/Desktop/ISP/Pages/Shared/_Layout.cshtml]
+[C:/Users/Bryan/Documents/KTU/ISP/ISP/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-rrb34lgvvn
