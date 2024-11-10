@@ -1,0 +1,48 @@
+@page
+@model ISP.Pages.Pay
+@{
+    ViewData["Title"] = "Apmokėjimas";
+}
+
+<style>
+    .join {
+        width: 100%;
+        gap: 5px;
+        justify-content: space-between;
+    }
+
+    .join div {
+        width: 100%;
+    }
+</style>
+
+<div class="container">
+    <h1>Apmokėjimas</h1>
+
+    <form method="post" action="/SaveCarChanges">
+        <div class="form-group">
+            <label>Kortelė</label>
+            <input type="number" class="form-control" placeholder="0000 0000 0000 0000"></input>
+        </div>
+
+        <div class="d-inline-flex join">
+            <div class="form-group w-full">
+                <label>Metai</label>
+                <input type="number" class="form-control" value="24" min="24" max="56"></input>
+            </div>
+
+            <div class="form-group w-full">
+                <label>Mėnesis</label>
+                <input type="number" class="form-control" value="11" min="1" max="12"></input>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>CSV</label>
+            <input type="number" class="form-control" placeholder="000"></input>
+        </div>
+
+        <a href="/Reservations" class="btn btn-secondary" id="rezervationLink">Rezevuoti</a>
+        <a href="/Cars" class="btn btn-secondary">Atšaukti</a>
+    </form>
+</div>

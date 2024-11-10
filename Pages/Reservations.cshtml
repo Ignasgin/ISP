@@ -1,0 +1,147 @@
+@page
+@model CarsModel
+@{
+    ViewData["Title"] = "Rezervacijų sąrašas";
+}
+
+<style>
+    h1 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: left;
+        align-items: start;
+        margin: 0;
+    }
+
+    .action-links a {
+        text-decoration: none;
+        color: #333;
+    }
+
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+
+    .new-car-link {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+    }
+
+    /* Modal styling */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #333;
+        width: 300px;
+        text-align: center;
+    }
+
+    .modal-button {
+        margin: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .confirm {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+    }
+
+    .cancel {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    table tr th {
+        background-color: #827a78;
+    }
+
+    table th,
+    table td {
+        border: 2px solid #333;
+    }
+</style>
+
+<body>
+
+    <div class="container-fluid">
+
+        <h1>@ViewData["Title"]</h1>
+
+        <table cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th>Markė</th>
+                    <th>Kaina</th>
+                    <th>Pradžios Data</th>
+                    <th>Pabaigos Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BMW</td>
+                    <td>€15,000</td>
+                    <td>11-09</td>
+                    <td>11-17</td>
+                </tr>
+                <tr>
+                    <td>Audi</td>
+                    <td>€18,000</td>
+                    <td>11-18</td>
+                    <td>11-19</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <p>Ar tikrai norite ištrinti automobilį?</p>
+            <button class="modal-button confirm" onclick="confirmDelete()">Taip</button>
+            <button class="modal-button cancel" onclick="closeModal()">Ne</button>
+        </div>
+    </div>
+
+    <script>
+        function showModal(event) {
+            event.preventDefault();  // Prevents the default link action
+            document.getElementById("confirmModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("confirmModal").style.display = "none";
+        }
+
+        function confirmDelete() {
+            // Add delete logic here (e.g., submit a form, make a DELETE request)
+            closeModal();
+            alert("Automobilis buvo ištrintas.");  // Temporary action
+        }
+    </script>
+
+</body>
