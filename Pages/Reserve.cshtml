@@ -1,0 +1,39 @@
+@page
+@model ISP.Pages.Reserve
+@{
+    ViewData["Title"] = "Rezevacija";
+}
+
+<div class="container">
+    <h1>Rezervuoti automobilį</h1>
+
+    <form method="post" action="/SaveCarChanges">
+        <div class="form-group">
+            <label>Markė</label>
+            <textarea asp-for="Make" class="form-control" disabled></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Kaina</label>
+            <textarea asp-for="Price" class="form-control" disabled></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Pradžios data</label>
+            <input asp-for="StartDate" class="form-control"></input>
+        </div>
+
+        <div class="form-group">
+            <label>Pabaigos Data</label>
+            <input asp-for="EndDate" class="form-control"></input>
+        </div>
+
+        <div class="form-group">
+            <label>Trumpalaikė rezervacija</label>
+            <input asp-for="ShortTime"></input>
+        </div>
+
+        <a href="/Cars" class="btn btn-secondary">Rezevuoti</a>
+        <a href="/Cars" class="btn btn-secondary">Atšaukti</a>
+    </form>
+</div>
