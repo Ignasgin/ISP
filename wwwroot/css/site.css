@@ -16,3 +16,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.hover-expand {
+  transition: transform 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+.hover-expand:hover {
+  transform: scale(1.05);
+}
