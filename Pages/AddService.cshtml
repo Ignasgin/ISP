@@ -1,0 +1,71 @@
+﻿@page
+@model ISP.Pages.AddServiceModel
+@{
+    ViewData["Title"] = "Pridėti servisą";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+
+    <form method="post" action="/AddService" id="registrationForm">
+        <div class="form-group">
+            <label>Pavadinimas</label>
+            <textarea class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Adresas</label>
+            <textarea class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Miestas</label>
+            <textarea class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Tel. nr.</label>
+            <textarea class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>El. paštas</label>
+            <textarea class="form-control"></textarea>
+        </div>
+
+        <br>
+        <button type="button" class="btn btn-primary mb-3" onclick="addInputFields()">Pridėti paslaugą</button>
+
+        <div id="buttonSection" class="mt-4">
+            <a href="/Services" class="btn btn-secondary">Išsaugoti</a>
+            <a href="/Services" class="btn btn-secondary">Atšaukti</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function addInputFields() {
+        const form = document.getElementById("registrationForm");
+
+        const row = document.createElement("div");
+        row.classList.add("row", "form-group", "mb-3");
+
+        const serviceCol = document.createElement("div");
+        serviceCol.classList.add("col");
+        serviceCol.innerHTML = `
+            <label>Paslauga</label>
+            <input type="text" class="form-control" name="service[]" placeholder="Paslauga">
+        `;
+
+        const priceCol = document.createElement("div");
+        priceCol.classList.add("col");
+        priceCol.innerHTML = `
+            <label>Kaina</label>
+            <input type="number" class="form-control" name="price[]" placeholder="Kaina">
+        `;
+        row.appendChild(serviceCol);
+        row.appendChild(priceCol);
+        const buttonSection = document.getElementById("buttonSection");
+        form.insertBefore(row, buttonSection);
+    }
+</script>

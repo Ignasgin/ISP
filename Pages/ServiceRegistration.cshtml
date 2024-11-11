@@ -1,0 +1,35 @@
+﻿@page
+@model ISP.Pages.ServiceRegistrationModel
+@{
+    ViewData["Title"] = "Registracija į servisą";
+}
+
+<div class="container my-4">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+    <p class="text-center">Pasirinkite paslaugą ir nurodykite pageidaujamą atlikimo datą.</p>
+
+    <form>
+        <div class="mb-3">
+            <label for="service" class="form-label">Paslauga</label>
+            <select class="form-select" id="service" required>
+                <option value="">Pasirinkite Paslaugą</option>
+                <option value="oil-change">Alyvos Keitimas</option>
+                <option value="brake-inspection">Stabdžių Patikra</option>
+                <option value="tire-change">Padangų Keitimas</option>
+                <option value="engine-repair">Variklio Remontas</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="serviceDate" class="form-label">Paslaugos Data</label>
+            <input type="date" class="form-control" id="serviceDate" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="additionalInfo" class="form-label">Papildoma Informacija</label>
+            <textarea class="form-control" id="additionalInfo" rows="3" placeholder="Jei turite papildomų pastabų, įrašykite čia."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Užsiregistruoti</button>
+    </form>
+</div>
