@@ -30,7 +30,14 @@
     }
 
     
+    table th {
+        background-color: #827a78;
+        border: 2px solid #333;
+    }
 
+    table td {
+        border: 1px solid #333;
+    }
    
 </style>
 
@@ -46,35 +53,35 @@
         <table cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
             <thead>
                 <tr>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Markė</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Išleidimo metai</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Litražas</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Kuro tipas</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Rida</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Įvertinimas</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Statusas</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Kaina</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Draudimai</th>
-                    <th></th>
+                    <th>Markė</th>
+                    <th>Išleidimo metai</th>
+                    <th>Litražas</th>
+                    <th>Kuro tipas</th>
+                    <th>Rida</th>
+                    <th>Įvertinimas</th>
+                    <th>Statusas</th>
+                    <th>Kaina</th>
+                    <th>Draudimai</th>
+                    <th>Veiksmai</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var car in Model.Cars)
                 {
                     <tr>
-                        <td style="border: 2px solid #333;">
+                        <td>
                             <a href="/Car?make=@car.Marke&model=@car.Modelis&year=@car.Metai&engineSize=@car.Litrazas&fuelType=@car.Kuro_Tipas&mileage=@car.Rida&grade=@car.Ivertinimu_Vidurkis&state=@car.Statusas&price=@car.Kaina">
                                 @car.Marke (spaudžiamas)
                             </a>
                         </td>
-                        <td style="border: 2px solid #333;">@car.Metai</td>
-                        <td style="border: 2px solid #333;">@car.Litrazas</td>
-                        <td style="border: 2px solid #333;">@car.Kuro_Tipas</td>
-                        <td style="border: 2px solid #333;">@car.Rida km</td>
-                        <td style="border: 2px solid #333;">@car.Ivertinimu_Vidurkis</td>
-                        <td style="border: 2px solid #333;">@car.Statusas</td>
-                        <td style="border: 2px solid #333;">€@car.Kaina</td>
-                        <td style="border: 2px solid #333;">
+                        <td>@car.Metai</td>
+                        <td>@car.Litrazas</td>
+                        <td>@car.Kuro_Tipas</td>
+                        <td>@car.Rida km</td>
+                        <td>@car.Ivertinimu_Vidurkis</td>
+                        <td>@car.Statusas</td>
+                        <td>€@car.Kaina</td>
+                        <td>
                             @if (car.Draudimai != null && car.Draudimai.Any())
                             {
                                 foreach (var insurance in car.Draudimai)
@@ -89,10 +96,10 @@
                         </td>
                         <td class="action-links">
                             <b>
-                                <a href="/ChangeCar?carId=@car.Id_Automobilis">Redaguoti</a>
-                                <a href="/RepairHistory?id=@car.Id_Automobilis">Remontas</a>
-                                <a href="/Calendar?id=@car.Id_Automobilis">Kalendorius</a>
-                                <a href="/Confirmation?id=@car.Id_Automobilis">Pašalinti</a>
+                                <a class="btn btn-primary" href="/ChangeCar?carId=@car.Id_Automobilis">Redaguoti</a>
+                                <a class="btn btn-secondary" href="/RepairHistory?id=@car.Id_Automobilis">Remontas</a>
+                                <a class="btn btn-secondary" href="/Calendar?id=@car.Id_Automobilis">Kalendorius</a>
+                                <a class="btn btn-danger" href="/Confirmation?id=@car.Id_Automobilis">Pašalinti</a>
                             </b>
                         </td>
                     </tr>
