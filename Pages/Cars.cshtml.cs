@@ -1,19 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ISP.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace ISP.Pages
+public class CarsModel : PageModel
 {
-    public class CarsModel : PageModel
+    private readonly AppDbContext _context;
+
+    public CarsModel(AppDbContext context)
     {
-        private readonly ILogger<CarsModel> _logger;
+        _context = context;
+    }
 
-        public CarsModel(ILogger<CarsModel> logger)
-        {
-            _logger = logger;
-        }
+    public List<Automobilis> Cars { get; set; }
 
-        public void OnGet()
-        {
-        }
+    public async Task OnGetAsync()
+    {
+        Cars = await _context.Automobilis.ToListAsync();
     }
 }

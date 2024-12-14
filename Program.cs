@@ -1,7 +1,15 @@
+using ISP.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+    new MySqlServerVersion(new Version(8, 2, 12)) // Replace with your MySQL version
+));
 
 var app = builder.Build();
 
@@ -23,3 +31,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+

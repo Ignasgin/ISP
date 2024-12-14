@@ -35,16 +35,13 @@
 </style>
 
 <body>
-
     <div class="container-fluid">
-
         <h1>@ViewData["Title"]</h1>
 
         <div class="new-car-link">
             <a href="/AddCar" class="btn btn-secondary" style="margin-right: 1.5rem;">Pridėti naują automobilį</a>
             <a href="/Filter" class="btn btn-secondary">Filtruoti automobilius</a>
         </div>
-
 
         <table cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
             <thead>
@@ -62,51 +59,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="border: 2px solid #333;"><a href="/Car?make=BMW&year=2015&engineSize=2.0&fuelType=Dyzelinas&mileage=150000&grade=9/10&state=Aktyvus&price=15000&insurance=Privalomas, Kasko">BMW (spaudžiamas)</a></td>
-                    <td style="border: 2px solid #333;">2015</td>
-                    <td style="border: 2px solid #333;">2.0</td>
-                    <td style="border: 2px solid #333;">Dyzelinas</td>
-                    <td style="border: 2px solid #333;">150000 km</td>
-                    <td style="border: 2px solid #333;">9/10</td>
-                    <td style="border: 2px solid #333;">Aktyvus</td>
-                    <td style="border: 2px solid #333;">€15,000</td>
-                    <td style="border: 2px solid #333;">Privalomas, Kasko</td>
-                    <td class="action-links">
-                        <b>
-                            <a href="/ChangeCar?make=BMW&year=2015&engineSize=2.0&fuelType=Dyzelinas&mileage=150000&grade=9/10&state=Aktyvus&price=15000&insurance=Privalomas, Kasko">Redaguoti</a>
-                            <a href="/RepairHistory" >Remontas</a>
-                            <a href="/Calendar" >Kalendorius</a>
-                            <a href="/Confirmation?make=BMW" >Pašalinti</a>
-                        </b>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="border: 2px solid #333; cursor: pointer;"><a href="/Car?make=Audi&year=2018&engineSize=1.8&fuelType=Benzinas&mileage=80000&grade=8/10&state=Aktyvus&price=18000&insurance=Privalomas">Audi <span>(spaudžiamas)</span></a></td>
-                    <td style="border: 2px solid #333;">2018</td>
-                    <td style="border: 2px solid #333;">1.8</td>
-                    <td style="border: 2px solid #333;">Benzinas</td>
-                    <td style="border: 2px solid #333;">80000 km</td>
-                    <td style="border: 2px solid #333;">8/10</td>
-                    <td style="border: 2px solid #333;">Aktyvus</td>
-                    <td style="border: 2px solid #333;">€18,000</td>
-                    <td style="border: 2px solid #333;">Privalomas</td>
-                    <td class="action-links">
-                        <b>
-                            <a href="/ChangeCar?make=Audi&year=2018&engineSize=1.8&fuelType=Benzinas&mileage=80000&grade=8/10&state=Aktyvus&price=18000&insurance=Privalomas">Redaguoti</a>
-                            <a href="/RepairHistory" >Remontas</a>
-                            <a href="/Calendar" >Kalendorius</a>
-                            <a href="/Confirmation?make=Audi">Pašalinti</a>
-                        </b>
-                    </td>
-                </tr>
+                @foreach (var car in Model.Cars)
+                {
+                    <tr>
+                        <td style="border: 2px solid #333;">
+                            <a href="/Car?make=@car.Marke&model=@car.Modelis&year=@car.Metai&engineSize=@car.Litrazas&fuelType=@car.Kuro_Tipas&mileage=@car.Rida&grade=@car.Ivertinimu_Vidurkis&state=@car.Statusas&price=@car.Kaina">
+                                @car.Marke (spaudžiamas)
+                            </a>
+                        </td>
+                        <td style="border: 2px solid #333;">@car.Metai</td>
+                        <td style="border: 2px solid #333;">@car.Litrazas</td>
+                        <td style="border: 2px solid #333;">@car.Kuro_Tipas</td>
+                        <td style="border: 2px solid #333;">@car.Rida km</td>
+                        <td style="border: 2px solid #333;">@car.Ivertinimu_Vidurkis</td>
+                        <td style="border: 2px solid #333;">@car.Statusas</td>
+                        <td style="border: 2px solid #333;">€@car.Kaina</td>
+                        <td style="border: 2px solid #333;">Privalomas, Kasko</td>
+                        <td class="action-links">
+                            <b>
+                                <a href="/ChangeCar?id=@car.Id_Automobilis">Redaguoti</a>
+                                <a href="/RepairHistory?id=@car.Id_Automobilis">Remontas</a>
+                                <a href="/Calendar?id=@car.Id_Automobilis">Kalendorius</a>
+                                <a href="/Confirmation?id=@car.Id_Automobilis">Pašalinti</a>
+                            </b>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
-
     </div>
-
-
-
-   
-
 </body>
