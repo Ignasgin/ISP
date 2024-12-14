@@ -25,7 +25,7 @@ CREATE TABLE Automobilis
 	vin varchar (255) NOT NULL,
 	rida int NOT NULL,
 	vietų skaičius int NOT NULL,
-	įvertinimų vidurkis int DEFAULT null NOT NULL,
+	įvertinimų vidurkis int DEFAULT 0 NOT NULL,
 	kuro tipas varchar (255) NOT NULL,
 	kėbulo tipas varchar (255) NOT NULL,
 	id_Automobilis integer NOT NULL,
