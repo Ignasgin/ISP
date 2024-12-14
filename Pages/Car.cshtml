@@ -1,4 +1,4 @@
-@page
+@page "{id:int}"
 @model ISP.Pages.CarModel
 
 @{
@@ -8,36 +8,43 @@
 <div class="container w-100 mt-5">
     <div class="row bg-light py-4">
         <div class="col-8">
-            <img class="img-fluid" src="images/@(Model.Make).jpg" alt="car image">
+            <img class="img-fluid" src="images/@(Model.automobilis.Marke).jpg" alt="car image">
         </div>
         <div class="col-4 ps-5">
             <dl class="row fs-5">
                 <dt class="col-sm-5">Markė:</dt>
-                <dd class="col-sm-7">@Model.Make</dd>
+                <dd class="col-sm-7">@Model.automobilis.Modelis</dd>
 
                 <dt class="col-sm-5">Metai:</dt>
-                <dd class="col-sm-7">@Model.Year</dd>
+                <dd class="col-sm-7">@Model.automobilis.Metai</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Variklio tūris:</dt>
-                <dd class="col-sm-7">@Model.EngineSize</dd>
+                <dd class="col-sm-7">@Model.automobilis.Litrazas</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Kuro tipas:</dt>
-                <dd class="col-sm-7">@Model.FuelType</dd>
+                <dd class="col-sm-7">@Model.automobilis.Kuro_Tipas</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Rida:</dt>
-                <dd class="col-sm-7">@Model.Mileage km</dd>
+                <dd class="col-sm-7">@Model.automobilis.Rida km</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Įvertinimas:</dt>
-                <dd class="col-sm-7">@Model.Grade</dd>
+                <dd class="col-sm-7">@Model.automobilis.Ivertinimu_Vidurkis</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Statusas:</dt>
-                <dd class="col-sm-7">@Model.State</dd>
+                <dd class="col-sm-7">@Model.automobilis.Statusas</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Kaina:</dt>
-                <dd class="col-sm-7">@Model.Price €</dd>
+                <dd class="col-sm-7">@Model.automobilis.Kaina €</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Draudimas:</dt>
-                <dd class="col-sm-7">@Model.Insurance</dd>
+                @if (Model.automobilis.Draudimai != null && Model.automobilis.Draudimai.Any()) {
+                    @foreach (var insurance in Model.automobilis.Draudimai) {
+                        <dd class="col-sm-7">@insurance.Draudimo_Tipas</dd>
+                    }
+                }
+                else {
+                    <dd class="col-sm-7">Neturi draudimo</dd>
+                }
             </dl>
             <div class="d-flex align-items-end justify-content-center" style="min-height: 20vh;">
                 <a href="/Reserve?make=BMW&price=15000" class="btn btn-primary">Rezervuoti</a>
@@ -85,7 +92,7 @@
         <h2 class="text-center pb-3 fs-3 fw-bolder">Asmeninės rekomendacijos</h2>
         @foreach (var car in new[] { "BMW", "AUDI", "MERCEDES" })
         {
-            string location = "images/" + car + ".jpg";
+            string location = "../images/" + car + ".jpg";
             <div class="col-4">
                 <img class="img-fluid hover-expand" src=@location alt="car image">
             </div>
@@ -96,7 +103,7 @@
         <h2 class="text-center pb-3 fs-3 fw-bolder">Panašus automobiliai</h2>
         @foreach (var car in new[] { "BMW", "AUDI", "MERCEDES" })
         {
-            string location = "images/" + car + ".jpg";
+            string location = "../images/" + car + ".jpg";
             <div class="col-4">
                 <img class="img-fluid hover-expand" src=@location alt="car image">
             </div>
@@ -107,7 +114,7 @@
         <h2 class="text-center pb-3 fs-3 fw-bolder">Populiariausi automobiliai</h2>
         @foreach (var car in new[] { "BMW", "AUDI", "MERCEDES" })
         {
-            string location = "images/" + car + ".jpg";
+            string location = "../images/" + car + ".jpg";
             <div class="col-4">
                 <img class="img-fluid hover-expand" src=@location alt="car image">
             </div>
