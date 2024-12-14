@@ -74,10 +74,22 @@
                         <td style="border: 2px solid #333;">@car.Ivertinimu_Vidurkis</td>
                         <td style="border: 2px solid #333;">@car.Statusas</td>
                         <td style="border: 2px solid #333;">€@car.Kaina</td>
-                        <td style="border: 2px solid #333;">Privalomas, Kasko</td>
+                        <td style="border: 2px solid #333;">
+                            @if (car.Draudimai != null && car.Draudimai.Any())
+                            {
+                                foreach (var insurance in car.Draudimai)
+                                {
+                                    <p>@insurance.Draudimo_Tipas</p> <!-- Display insurance type -->
+                                }
+                            }
+                            else
+                            {
+                                <p>Neturi draudimo</p> <!-- If no insurance exists for the car -->
+                            }
+                        </td>
                         <td class="action-links">
                             <b>
-                                <a href="/ChangeCar?id=@car.Id_Automobilis">Redaguoti</a>
+                                <a href="/ChangeCar?carId=@car.Id_Automobilis">Redaguoti</a>
                                 <a href="/RepairHistory?id=@car.Id_Automobilis">Remontas</a>
                                 <a href="/Calendar?id=@car.Id_Automobilis">Kalendorius</a>
                                 <a href="/Confirmation?id=@car.Id_Automobilis">Pašalinti</a>

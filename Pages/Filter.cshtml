@@ -1,94 +1,204 @@
 ﻿@page
-@model ISP.Pages.FilterModel
+@model FilterModel
+@using ISP.Data
+@inject AppDbContext _context
 @{
     ViewData["Title"] = "Filtruoti automobilius";
+
+    if (Model.Markenes == null)
+    {
+        Model.Markenes = new List<string>();
+    }
 }
 
 <div class="container">
     <h1>Filtruoti automobilius</h1>
 
-    <form method="post">
+    <form method="get" action="/Cars">
+        <!-- Marke Dropdown -->
         <div class="form-group">
             <label>Markė</label>
-            <select class="form-control">
+            <select asp-for="Marke" class="form-control">
                 <option value="base">-----</option>
-                <option value="BMW">BMW</option>
-                <option value="Audi">Audi</option>
+                @foreach (var marke in Model.Markenes)
+                {
+                    <option value="@marke">@marke</option>
+                }
             </select>
         </div>
 
+        <!-- Modelis Dropdown -->
+        <div class="form-group">
+            <label>Modelis</label>
+            <select asp-for="Modelis" class="form-control">
+                <option value="base">-----</option>
+                @foreach (var modelis in Model.Modeliai)
+                {
+                    <option value="@modelis">@modelis</option>
+                }
+            </select>
+        </div>
+
+        <!-- Metai Dropdown -->
         <div class="form-group">
             <label>Išleidimo metai</label>
-            <select class="form-control">
+            <select asp-for="Metai" class="form-control">
                 <option value="base">-----</option>
-                <option value="2015">2015</option>
-                <option value="2018">2018</option>
+                @foreach (var metai in Model.Metais)
+                {
+                    <option value="@metai">@metai</option>
+                }
             </select>
         </div>
 
+        <!-- Litrazas Dropdown -->
         <div class="form-group">
             <label>Litražas</label>
-            <select class="form-control">
+            <select asp-for="Litrazas" class="form-control">
                 <option value="base">-----</option>
-                <option value="2.0">2.0</option>
-                <option value="1.8">1.8</option>
+                @foreach (var litrazas in Model.Litrazai)
+                {
+                    <option value="@litrazas">@litrazas</option>
+                }
             </select>
         </div>
 
+        <!-- Galia Dropdown -->
+        <div class="form-group">
+            <label>Galia</label>
+            <select asp-for="Galia" class="form-control">
+                <option value="base">-----</option>
+                @foreach (var galia in Model.Galios)
+                {
+                    <option value="@galia">@galia</option>
+                }
+            </select>
+        </div>
+
+        <!-- Numeris Dropdown -->
+        <div class="form-group">
+            <label>Numeris</label>
+            <select asp-for="Numeris" class="form-control">
+                <option value="base">-----</option>
+                @foreach (var numeris in Model.Numeriai)
+                {
+                    <option value="@numeris">@numeris</option>
+                }
+            </select>
+        </div>
+
+        <!-- VIN Dropdown -->
+        <div class="form-group">
+            <label>VIN</label>
+            <select asp-for="Vin" class="form-control">
+                <option value="base">-----</option>
+                @foreach (var vin in Model.Vinai)
+                {
+                    <option value="@vin">@vin</option>
+                }
+            </select>
+        </div>
+
+        <!-- Vietu Skai Dropdown -->
+        <div class="form-group">
+            <label>Vietų skaičius</label>
+            <select asp-for="VietuSk" class="form-control">
+                <option value="base">-----</option>
+                @foreach (var vietuSk in Model.VietuSkai)
+                {
+                    <option value="@vietuSk">@vietuSk</option>
+                }
+            </select>
+        </div>
+
+        <!-- Kebulo Tipas Dropdown -->
+        <div class="form-group">
+            <label>Kebulo tipas</label>
+            <select asp-for="KebuloTipas" class="form-control">
+                <option value="base">-----</option>
+                @foreach (var kebuloTipas in Model.KebuloTipai)
+                {
+                    <option value="@kebuloTipas">@kebuloTipas</option>
+                }
+            </select>
+        </div>
+
+        <!-- Kuro Tipas Dropdown -->
         <div class="form-group">
             <label>Kuro tipas</label>
-            <select class="form-control">
+            <select asp-for="KuroTipas" class="form-control">
                 <option value="base">-----</option>
-                <option value="Dyzelinas">Dyzelinas</option>
-                <option value="Benzinas">Benzinas</option>
+                @foreach (var kuroTipas in Model.KuroTipai)
+                {
+                    <option value="@kuroTipas">@kuroTipas</option>
+                }
             </select>
         </div>
 
+        <!-- Rida Dropdown -->
         <div class="form-group">
             <label>Rida</label>
-            <select class="form-control">
+            <select asp-for="Rida" class="form-control">
                 <option value="base">-----</option>
-                <option value="150000 km">150000 km</option>
-                <option value="80000 km">80000 km</option>
+                @foreach (var rida in Model.Ridos)
+                {
+                    <option value="@rida">@rida</option>
+                }
             </select>
         </div>
 
+        <!-- Įvertinimas Dropdown -->
         <div class="form-group">
             <label>Įvertinimas</label>
-            <select class="form-control">
+            <select asp-for="Ivertinimas" class="form-control">
                 <option value="base">-----</option>
-                <option value="9/10">9/10</option>
-                <option value="8/10">8/10</option>
+                @foreach (var ivertinimas in Model.IvertinimaiList)
+                {
+                    <option value="@ivertinimas">@ivertinimas</option>
+                }
             </select>
         </div>
 
+        <!-- Statusas Dropdown -->
         <div class="form-group">
             <label>Statusas</label>
-            <select class="form-control">
+            <select asp-for="Statusas" class="form-control">
                 <option value="base">-----</option>
-                <option value="Aktyvus">Aktyvus</option>
+                @foreach (var statusas in Model.Statusai)
+                {
+                    <option value="@statusas">@statusas</option>
+                }
             </select>
         </div>
 
+        <!-- Kaina Dropdown -->
         <div class="form-group">
             <label>Kaina</label>
-            <select class="form-control">
+            <select asp-for="Kaina" class="form-control">
                 <option value="base">-----</option>
-                <option value="€15,000">€15,000</option>
-                <option value="€18,000">€18,000</option>
+                @foreach (var kaina in Model.Kainos)
+                {
+                    <option value="@kaina">@kaina</option>
+                }
             </select>
         </div>
 
+        <!-- Draudimas Dropdown -->
         <div class="form-group" style="margin-bottom: 1.5rem;">
             <label>Draudimai</label>
-            <select class="form-control">
+            <select asp-for="Draudimas" class="form-control">
                 <option value="base">-----</option>
-                <option value="Privalomas, Kasko">Privalomas, Kasko</option>
-                <option value="Privalomas">Privalomas</option>
+                @foreach (var draudimas in Model.DraudimaiList)
+                {
+                    <option value="@draudimas">@draudimas</option>
+                }
             </select>
         </div>
 
-        <a href="/Cars" class="btn btn-secondary">Filtruoti</a>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-secondary">Filtruoti</button>
         <a href="/Cars" class="btn btn-secondary">Atšaukti</a>
     </form>
+
+    
 </div>

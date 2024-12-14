@@ -1,12 +1,50 @@
 ﻿@page
 @model ISP.Pages.ConfirmationModel
 @{
-	ViewData["Title"] = "Patvirtinti panaikinimą";
+    ViewData["Title"] = "Patvirtinti panaikinimą";
 }
+
+@using ISP.Data
+@inject AppDbContext _context
+
+@{
+    var carIdStr = Request.Query["id"];
+    int carId = 0;
+
+    // Try to parse the carId from the query string
+    if (!int.TryParse(carIdStr, out carId))
+    {
+        // Handle the error or redirect if the ID is invalid
+        Response.Redirect("/Cars");
+        return;
+    }
+
+    var car = _context.Automobilis.FirstOrDefault(c => c.Id_Automobilis == carId);
+
+    if (car != null)
+    {
+        if (Request.Query["action"] == "delete")
+        {
+            var check = _context.Perziuretas_Automobilis.Where(p => p.Fk_Automobilis_Id_Automobilis == carId);
+            _context.Perziuretas_Automobilis.RemoveRange(check);
+            var reviews = _context.Atsiliepimas.Where(r => r.Fk_Automobilis_Id_Automobilis == carId);
+            _context.Atsiliepimas.RemoveRange(reviews);
+            var insurance = _context.Draudimas.Where(i => i.Fk_Automobilis_Id_Automobilis == carId);
+            _context.Draudimas.RemoveRange(insurance);
+            var reser = _context.Rezervacija.Where(z => z.Fk_Automobilis_Id_Automobilis == carId);
+            _context.Rezervacija.RemoveRange(reser);
+            var treser = _context.Trumpalaike_Rezervacija.Where(t => t.Fk_Automobilis_Id_Automobilis == carId);
+            _context.Trumpalaike_Rezervacija.RemoveRange(treser);
+            _context.Automobilis.Remove(car);
+            _context.SaveChanges();
+            Response.Redirect("/Cars");
+        }
+    }
+}
+
 <style>
-        /* Modal styling */
+    /* Modal styling */
     .modal {
-        
         position: fixed;
         z-index: 1;
         left: 0;
@@ -30,6 +68,7 @@
         padding: 10px 20px;
         cursor: pointer;
     }
+
     .confirm {
         background-color: #28a745;
         color: #fff;
@@ -44,20 +83,20 @@
         text-decoration: none;
     }
 </style>
-<body>
 
+<body>
     <div class="container-fluid">
-        <div  >
-                <div class="modal-content">
+        <div>
+            <div class="modal-content">
                 <h1 id="car-make">Ar tikrai norite ištrinti automobilį?</h1>
-                    <b>
-                        <a href="/Cars" class="modal-button confirm">Taip</a>
-                        <a href="/Cars" class="modal-button cancel">Ne</a>
-                    </b>
-                    
-                </div>
+                <b>
+                    <a href="/Confirmation?id=@car.Id_Automobilis&action=delete" class="modal-button confirm">Taip</a>
+                    <a href="/Cars" class="modal-button cancel">Ne</a>
+                </b>
+            </div>
         </div>
     </div>
+
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const make = urlParams.get('make') || 'automobilį';

@@ -1,58 +1,134 @@
 ﻿@page
-@model ISP.Pages.IndexModel
+@model AddCarModel
+@using ISP.Data
+@inject AppDbContext _context
 @{
-    ViewData["Title"] = "Pridėti automobilį";
+    ViewData["Title"] = "Pridėti naują automobilį";
 }
-<div class="container">
-    <h1>Pridėti automobilį</h1>
 
-    <form method="post" action="/SaveCarChanges">
+<div class="container">
+    <h1>Pridėti naują automobilį</h1>
+
+    <form method="post">
         <div class="form-group">
             <label>Markė</label>
-            <textarea  class="form-control"></textarea>
+            <input asp-for="Car.Marke" class="form-control" />
+            <span asp-validation-for="Car.Marke" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Modelis</label>
+            <input asp-for="Car.Modelis" class="form-control" />
+            <span asp-validation-for="Car.Modelis" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label>Išleidimo metai</label>
-            <textarea  class="form-control"></textarea>
+            <input asp-for="Car.Metai" class="form-control" />
+            <span asp-validation-for="Car.Metai" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label>Litražas</label>
-            <textarea class="form-control"></textarea>
+            <input asp-for="Car.Litrazas" class="form-control" />
+            <span asp-validation-for="Car.Litrazas" class="text-danger"></span>
         </div>
 
         <div class="form-group">
+            <label>Galia</label>
+            <input asp-for="Car.Galia" class="form-control" />
+            <span asp-validation-for="Car.Galia" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Numeris</label>
+            <input asp-for="Car.Numeris" class="form-control" />
+            <span asp-validation-for="Car.Numeris" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Vin</label>
+            <input asp-for="Car.Vin" class="form-control" />
+            <span asp-validation-for="Car.Vin" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Vietų skaičius</label>
+            <input asp-for="Car.Vietu_Sk" class="form-control" />
+            <span asp-validation-for="Car.Vietu_Sk" class="text-danger"></span>
+        </div>
+
+        <!-- Dropdown for Kuro tipas -->
+        <div class="form-group">
             <label>Kuro tipas</label>
-            <textarea  class="form-control"></textarea>
+            <select asp-for="Car.Kuro_Tipas" class="form-control">
+                <option value="">Pasirinkite kuro tipą</option>
+                <option value="Benzinas">Benzinas</option>
+                <option value="Dyzelinas">Dyzelinas</option>
+                <option value="Elektra">Elektra</option>
+            </select>
+            <span asp-validation-for="Car.Kuro_Tipas" class="text-danger"></span>
+        </div>
+
+        <!-- Dropdown for Kebulo tipas -->
+        <div class="form-group">
+            <label>Kėbulo tipas</label>
+            <select asp-for="Car.Kebulo_Tipas" class="form-control">
+                <option value="">Pasirinkite kėbulo tipą</option>
+                <option value="Sedanas">Sedanas</option>
+                <option value="SUV">SUV</option>
+                <option value="Kupė">Kupė</option>
+                <option value="Hečbekas">Hečbekas</option>
+                <option value="Universalas">Universalas</option>
+                <option value="Visureigis">Visureigis</option>
+                <option value="Kabrioletas">Kabrioletas</option>
+            </select>
+            <span asp-validation-for="Car.Kebulo_Tipas" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label>Rida</label>
-            <textarea  class="form-control"></textarea>
+            <input asp-for="Car.Rida" class="form-control" />
+            <span asp-validation-for="Car.Rida" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label>Įvertinimas</label>
-            <textarea  class="form-control"></textarea>
+            <input asp-for="Car.Ivertinimu_Vidurkis" class="form-control" />
+            <span asp-validation-for="Car.Ivertinimu_Vidurkis" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label>Statusas</label>
-            <textarea  class="form-control"></textarea>
+            <input asp-for="Car.Statusas" class="form-control" />
+            <span asp-validation-for="Car.Statusas" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label>Kaina</label>
-            <textarea  class="form-control"></textarea>
+            <input asp-for="Car.Kaina" class="form-control" />
+            <span asp-validation-for="Car.Kaina" class="text-danger"></span>
         </div>
 
-        <div class="form-group" style="margin-bottom: 1.5rem;">
-            <label>Draudimai</label>
-            <textarea  class="form-control"></textarea>
-        </div>
-
-        <a href="/Cars" class="btn btn-secondary">Išsaugoti</a>
+        <br />
+        <button type="submit" class="btn btn-primary">Pridėti automobilį</button>
         <a href="/Cars" class="btn btn-secondary">Atšaukti</a>
     </form>
+
+    @if (!ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            Please correct the errors in the form.
+            <ul>
+                @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
