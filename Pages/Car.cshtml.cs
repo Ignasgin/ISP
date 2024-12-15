@@ -26,6 +26,7 @@ public class CarModel : PageModel
     public async Task<IActionResult> OnGetAsync(int id)
     {
         CurrentUser.Id_Naudotojas = 1;
+        
         Automobilis = await _context.Automobilis
             .Include(a => a.Atsiliepimai)!
             .ThenInclude(at => at.Naudotojas)
@@ -35,7 +36,8 @@ public class CarModel : PageModel
         {
             return NotFound();
         }
-
+        
+        
         var watchedAuto = new Perziuretas_Automobilis
         {
             Data = DateTime.UtcNow,
@@ -47,7 +49,7 @@ public class CarModel : PageModel
             .AnyAsync(x =>
                 x.Fk_Automobilis_Id_Automobilis == Id && x.Fk_Naudotojas_Id_Naudotojas == CurrentUser.Id_Naudotojas);
 
-        if (!isExist)
+        if (!isExist && await IsUserExist())
         {
             await _context.Perziuretas_Automobilis.AddAsync(watchedAuto);
             await _context.SaveChangesAsync();
@@ -60,6 +62,10 @@ public class CarModel : PageModel
         return Page();
     }
 
+    public async Task<bool> IsUserExist()
+    {
+        return await _context.Naudotojas.AsQueryable().AnyAsync(x => x.Id_Naudotojas == CurrentUser.Id_Naudotojas);
+    }
 
     public async Task<IActionResult> OnPostAddReview(int id)
     {
