@@ -53,21 +53,9 @@ namespace ISP.Pages
                 return RedirectToPage("/Reservations");
             }
 
-            Rezervacija rezervacija = new Rezervacija()
-            {
-                Pradzia = StartDate,
-                Pabaiga = EndDate,
-                Pateikimo_Data = DateTime.Now,
-                Paemimo_Vieta = "",
-                Atidavimo_Vieta = "",
-                Fk_Automobilis_Id_Automobilis = Id,
-                Fk_Naudotojas_Id_Naudotojas = 0 // TODO set to user ID
-            };
-
-            _context.Rezervacija.Add(rezervacija);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("/Pay");
+            return RedirectToPage("/Pay", new {
+                id = Id
+            });
         }
     }
 }
