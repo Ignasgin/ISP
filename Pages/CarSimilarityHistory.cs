@@ -40,7 +40,7 @@ public class CarSimilarityHistory
 
         if (cars.Count < 2)
         {
-            throw new ArgumentException("Not enough watched cars to calculate similarities.");
+            return new List<(int, double)>();
         }
 
         // Find the target car
