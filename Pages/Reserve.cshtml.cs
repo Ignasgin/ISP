@@ -17,10 +17,10 @@ namespace ISP.Pages
         public Automobilis automobilis { get; set; }
 
         [BindProperty, DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
 
         [BindProperty, DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
 
         [BindProperty]
         public bool ShortTime { get; set; }
@@ -54,7 +54,9 @@ namespace ISP.Pages
             }
 
             return RedirectToPage("/Pay", new {
-                id = Id
+                Id = Id,
+                StartDate = StartDate,
+                EndDate = EndDate
             });
         }
     }
