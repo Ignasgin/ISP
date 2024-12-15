@@ -168,26 +168,29 @@
         </div>
     </div>
 
-    <div class="row py-3 my-5 bg-light">
-        <h2 class="text-center pb-3 fs-3 fw-bolder">Asmeninės rekomendacijos</h2>
-        @foreach (var car in await @Model.GetTop3HistoryCarsAsync())
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm h-100">
-                    <a href="/Car/@car.Id_Automobilis" class="text-decoration-none text-dark">
-                        <div class="card-body text-center">
-                            <h5 class="card-title mb-1">@car.Marke</h5>
-                            <p class="card-text mb-2">@car.Modelis</p>
-                            <p class="text-muted small">
-                                <strong>Įvertinimas:</strong> @car.Ivertinimu_Vidurkis <span class="star-color">★</span>
-                            </p>
-                        </div>
-                    </a>
+    @if (await @Model.IsUserExist())
+    {
+        <div class="row py-3 my-5 bg-light">
+            <h2 class="text-center pb-3 fs-3 fw-bolder">Asmeninės rekomendacijos</h2>
+            @foreach (var car in await @Model.GetTop3HistoryCarsAsync())
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <a href="/Car/@car.Id_Automobilis" class="text-decoration-none text-dark">
+                            <div class="card-body text-center">
+                                <h5 class="card-title mb-1">@car.Marke</h5>
+                                <p class="card-text mb-2">@car.Modelis</p>
+                                <p class="text-muted small">
+                                    <strong>Įvertinimas:</strong> @car.Ivertinimu_Vidurkis <span class="star-color">★</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
-
+            }
+        </div>
+    }
+    
     <div class="row py-3 my-5 bg-light">
         <h2 class="text-center pb-3 fs-3 fw-bolder">Panašūs automobiliai</h2>
         @foreach (var car in await @Model.GetTop3SimilarCarsAsync())
