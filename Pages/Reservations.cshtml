@@ -104,19 +104,19 @@
                 @foreach (var trumpRezervacija in Model.trumpalaikesRezervacijos)
                 {
                     <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>@trumpRezervacija.Pateikimo_Data</td>
-                        <td>@(trumpRezervacija.Pateikimo_Data.AddHours(trumpRezervacija.Laikas))</td>
+                        <td>@trumpRezervacija.Automobilis.Marke @trumpRezervacija.Automobilis.Modelis (Trumpalaike)</td>
+                        <td>@trumpRezervacija.Automobilis.Kaina</td>
+                        <td>@trumpRezervacija.Pateikimo_Data.ToString("yyyy-MM-dd")</td>
+                        <td>@trumpRezervacija.Pateikimo_Data.AddHours(trumpRezervacija.Laikas).ToString("yyyy-MM-dd")</td>
                     </tr>
                 }
                 @foreach (var rezervacija in Model.rezervacijos)
                 {
                     <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>@rezervacija.Pradzia</td>
-                        <td>@rezervacija.Pabaiga</td>
+                        <td>@rezervacija.Automobilis.Marke @rezervacija.Automobilis.Modelis</td>
+                        <td>@rezervacija.Automobilis.Kaina</td>
+                        <td>@rezervacija.Pradzia.ToString("yyyy-MM-dd")</td>
+                        <td>@rezervacija.Pabaiga.ToString("yyyy-MM-dd")</td>
                     </tr>
                 }
             </tbody>

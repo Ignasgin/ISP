@@ -144,9 +144,9 @@ namespace ISP.Data
         // Foreign Key relationships
         public int Fk_Automobilis_Id_Automobilis { get; set; }
         public int Fk_Naudotojas_Id_Naudotojas { get; set; }
-        
 
 
+        public Automobilis Automobilis { get; set; }
     }
     public class Trumpalaike_Rezervacija
     {
@@ -161,8 +161,8 @@ namespace ISP.Data
         // Foreign Key relationships
         public int Fk_Automobilis_Id_Automobilis { get; set; }
         public int Fk_Naudotojas_Id_Naudotojas { get; set; }
-        
 
+        public Automobilis Automobilis { get; set; }
     }
 
 

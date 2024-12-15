@@ -38,6 +38,17 @@
                 .HasForeignKey(p => p.Fk_Automobilis_Id_Automobilis)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Rezervacija>()
+                .HasOne(r => r.Automobilis)
+                .WithMany()
+                .HasForeignKey(r => r.Fk_Automobilis_Id_Automobilis)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Trumpalaike_Rezervacija>()
+                .HasOne(r => r.Automobilis)
+                .WithMany()
+                .HasForeignKey(r => r.Fk_Automobilis_Id_Automobilis)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
