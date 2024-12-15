@@ -14,8 +14,8 @@ public class Reservations : PageModel
 
     public async Task<IActionResult> OnGetAsync()
     {
-        trumpalaikesRezervacijos = await _context.Trumpalaike_Rezervacija.ToListAsync();
-        rezervacijos = await _context.Rezervacija.ToListAsync();
+        trumpalaikesRezervacijos = await _context.Trumpalaike_Rezervacija.Include(r => r.Automobilis).ToListAsync();
+        rezervacijos = await _context.Rezervacija.Include(r => r.Automobilis).ToListAsync();
 
         return Page();
     }

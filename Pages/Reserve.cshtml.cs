@@ -17,13 +17,25 @@ namespace ISP.Pages
         public Automobilis automobilis { get; set; }
 
         [BindProperty, DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
 
         [BindProperty, DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(1);
 
         [BindProperty]
         public bool ShortTime { get; set; }
+
+        private async Task<bool> CheckIsReserved (DateTime startDate, DateTime endDate)
+        {
+            bool reservuotas = await _context.Rezervacija.AnyAsync(r => r.Pradzia <= endDate && r.Pabaiga >= startDate && r.Fk_Automobilis_Id_Automobilis == Id);
+
+            if (!reservuotas)
+            {
+                return await _context.Trumpalaike_Rezervacija.AnyAsync(r => r.Pateikimo_Data <= endDate && r.Pateikimo_Data.AddHours(r.Laikas) >= startDate && r.Fk_Automobilis_Id_Automobilis == Id);
+            }
+
+            return true;
+        }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -39,6 +51,13 @@ namespace ISP.Pages
         {
             if (ShortTime)
             {
+                if (await CheckIsReserved(DateTime.Now, DateTime.Now.AddHours(1)))
+                {
+                    ModelState.AddModelError("StartDate", "Automobilis šiuo laikotarpiu užimtas");
+                    await OnGetAsync();
+                    return Page();
+                }
+
                 Trumpalaike_Rezervacija trumpRezervacija = new Trumpalaike_Rezervacija()
                 {
                     Pateikimo_Data = DateTime.Now,
@@ -53,21 +72,18 @@ namespace ISP.Pages
                 return RedirectToPage("/Reservations");
             }
 
-            Rezervacija rezervacija = new Rezervacija()
-            {
-                Pradzia = StartDate,
-                Pabaiga = EndDate,
-                Pateikimo_Data = DateTime.Now,
-                Paemimo_Vieta = "",
-                Atidavimo_Vieta = "",
-                Fk_Automobilis_Id_Automobilis = Id,
-                Fk_Naudotojas_Id_Naudotojas = 0 // TODO set to user ID
-            };
+            if (await CheckIsReserved(StartDate, EndDate))
+                {
+                ModelState.AddModelError("StartDate", "Automobilis šiuo laikotarpiu užimtas");
+                await OnGetAsync();
+                return Page();
+            }
 
-            _context.Rezervacija.Add(rezervacija);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("/Pay");
+            return RedirectToPage("/Pay", new {
+                Id = Id,
+                StartDate = StartDate,
+                EndDate = EndDate
+            });
         }
     }
 }
