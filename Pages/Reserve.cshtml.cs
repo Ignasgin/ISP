@@ -1,16 +1,20 @@
 using System.ComponentModel.DataAnnotations;
+using ISP.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace ISP.Pages
 {
     public class Reserve : PageModel
     {
-        [BindProperty(SupportsGet = true)]
-        public string Make { get; set; }
+        private readonly AppDbContext _context;
+        public Reserve(AppDbContext context) => _context = context;
 
         [BindProperty(SupportsGet = true)]
-        public string Price { get; set; }
+        public int Id { get; set; }
+
+        public Automobilis automobilis { get; set; }
 
         [BindProperty, DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
@@ -21,9 +25,14 @@ namespace ISP.Pages
         [BindProperty]
         public bool ShortTime { get; set; }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            // Properties are automatically set from the query parameters due to SupportsGet = true
+            automobilis = await _context.Automobilis.FirstOrDefaultAsync(c => c.Id_Automobilis == Id);
+
+            if (automobilis == null)
+                return NotFound();
+
+            return Page();
         }
     }
 }
