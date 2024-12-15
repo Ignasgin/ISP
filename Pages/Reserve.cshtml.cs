@@ -81,8 +81,8 @@ namespace ISP.Pages
 
             return RedirectToPage("/Pay", new {
                 Id = Id,
-                StartDate = StartDate,
-                EndDate = EndDate
+                StartDate = StartDate.ToString("yyyy-MM-ddTHH:mm"),
+                EndDate = EndDate.ToString("yyyy-MM-ddTHH:mm")
             });
         }
     }
