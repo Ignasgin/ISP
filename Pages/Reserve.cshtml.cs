@@ -34,5 +34,40 @@ namespace ISP.Pages
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (ShortTime)
+            {
+                Trumpalaike_Rezervacija trumpRezervacija = new Trumpalaike_Rezervacija()
+                {
+                    Pateikimo_Data = DateTime.Now,
+                    Laikas = 1,
+                    Fk_Automobilis_Id_Automobilis = Id,
+                    Fk_Naudotojas_Id_Naudotojas = 0 // TODO set to user ID
+                };
+
+                _context.Trumpalaike_Rezervacija.Add(trumpRezervacija);
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage("/Reservations");
+            }
+
+            Rezervacija rezervacija = new Rezervacija()
+            {
+                Pradzia = StartDate,
+                Pabaiga = EndDate,
+                Pateikimo_Data = DateTime.Now,
+                Paemimo_Vieta = "",
+                Atidavimo_Vieta = "",
+                Fk_Automobilis_Id_Automobilis = Id,
+                Fk_Naudotojas_Id_Naudotojas = 0 // TODO set to user ID
+            };
+
+            _context.Rezervacija.Add(rezervacija);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Pay");
+        }
     }
 }
