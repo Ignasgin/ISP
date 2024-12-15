@@ -178,6 +178,9 @@ public class CarModel : PageModel
         var similarityCalculator = new CarSimilarity(_context);
         var similarCars = await similarityCalculator.FindTop3SimilarCarsAsync(Id);
 
+        if (similarCars.Count == 0)
+            return await GetTop3CarsByRatingAsync();
+        
         foreach (var similarCar in similarCars)
         {
             Console.WriteLine($"Car ID: {similarCar.SimilarCarId}, Similarity: {similarCar.Similarity:F2}");
@@ -200,6 +203,9 @@ public class CarModel : PageModel
         var similarityCalculator = new CarSimilarityHistory(_context);
         var similarCars = await similarityCalculator.FindTop3SimilarCarsAsync(Id, CurrentUser.Id_Naudotojas);
 
+        if (similarCars.Count == 0)
+            return await GetTop3CarsByRatingAsync();
+        
         foreach (var similarCar in similarCars)
         {
             Console.WriteLine($"Car ID: {similarCar.SimilarCarId}, Similarity: {similarCar.WeightedSimilarity:F2}");

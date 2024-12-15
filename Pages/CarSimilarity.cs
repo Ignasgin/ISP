@@ -20,7 +20,7 @@ public class CarSimilarity
 
         if (cars == null || cars.Count < 2)
         {
-            throw new ArgumentException("Not enough cars to calculate similarities.");
+            return new List<(int, double)>();
         }
 
         // Find the target car
