@@ -25,6 +25,18 @@ namespace ISP.Pages
         [BindProperty]
         public bool ShortTime { get; set; }
 
+        private async Task<bool> CheckIsReserved (DateTime startDate, DateTime endDate)
+        {
+            bool reservuotas = await _context.Rezervacija.AnyAsync(r => r.Pradzia <= endDate && r.Pabaiga >= startDate && r.Fk_Automobilis_Id_Automobilis == Id);
+
+            if (!reservuotas)
+            {
+                return await _context.Trumpalaike_Rezervacija.AnyAsync(r => r.Pateikimo_Data <= endDate && r.Pateikimo_Data.AddHours(r.Laikas) >= startDate && r.Fk_Automobilis_Id_Automobilis == Id);
+            }
+
+            return true;
+        }
+
         public async Task<IActionResult> OnGetAsync()
         {
             automobilis = await _context.Automobilis.FirstOrDefaultAsync(c => c.Id_Automobilis == Id);
@@ -39,6 +51,13 @@ namespace ISP.Pages
         {
             if (ShortTime)
             {
+                if (await CheckIsReserved(DateTime.Now, DateTime.Now.AddHours(1)))
+                {
+                    ModelState.AddModelError("StartDate", "Automobilis šiuo laikotarpiu užimtas");
+                    await OnGetAsync();
+                    return Page();
+                }
+
                 Trumpalaike_Rezervacija trumpRezervacija = new Trumpalaike_Rezervacija()
                 {
                     Pateikimo_Data = DateTime.Now,
@@ -51,6 +70,13 @@ namespace ISP.Pages
                 await _context.SaveChangesAsync();
 
                 return RedirectToPage("/Reservations");
+            }
+
+            if (await CheckIsReserved(StartDate, EndDate))
+                {
+                ModelState.AddModelError("StartDate", "Automobilis šiuo laikotarpiu užimtas");
+                await OnGetAsync();
+                return Page();
             }
 
             return RedirectToPage("/Pay", new {
