@@ -1,39 +1,28 @@
+using System.Diagnostics;
+using ISP.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace ISP.Pages;
 
 public class CarModel : PageModel
 {
-    [BindProperty(SupportsGet = true)]
-    public string Make { get; set; }
+    private readonly AppDbContext _context;
+
+    public CarModel(AppDbContext context) => _context = context;
 
     [BindProperty(SupportsGet = true)]
-    public int Year { get; set; }
-    
-    [BindProperty(SupportsGet = true)]
-    public double EngineSize { get; set; }
+    public int Id { get; set; }
 
-    [BindProperty(SupportsGet = true)]
-    public string FuelType { get; set; }
+    public Automobilis automobilis { get; set; }
 
-    [BindProperty(SupportsGet = true)]
-    public int Mileage { get; set; }
+    public async Task<IActionResult> OnGetAsync() {
+        automobilis = await _context.Automobilis.FirstOrDefaultAsync(c => c.Id_Automobilis == Id);
 
-    [BindProperty(SupportsGet = true)]
-    public string Grade { get; set; }
+        if (automobilis == null)
+            return NotFound();
 
-    [BindProperty(SupportsGet = true)]
-    public string State { get; set; }
-
-    [BindProperty(SupportsGet = true)]
-    public string Price { get; set; }
-
-    [BindProperty(SupportsGet = true)]
-    public string Insurance { get; set; }
-    
-    public void OnGet()
-    {
-        
+        return Page();
     }
 }

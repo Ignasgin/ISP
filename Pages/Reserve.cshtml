@@ -1,4 +1,4 @@
-@page
+@page "{id:int}"
 @model ISP.Pages.Reserve
 @{
     ViewData["Title"] = "Rezevacija";
@@ -7,25 +7,25 @@
 <div class="container">
     <h1>Rezervuoti automobilį</h1>
 
-    <form id="reservationForm" method="get" action="/Pay">
+    <form id="reservationForm" method="post">
         <div class="form-group">
             <label>Markė</label>
-            <textarea asp-for="Make" class="form-control" disabled></textarea>
+            <input asp-for="automobilis.Marke" class="form-control" disabled />
         </div>
 
         <div class="form-group">
             <label>Kaina</label>
-            <textarea asp-for="Price" class="form-control" disabled></textarea>
+            <input asp-for="automobilis.Kaina" class="form-control" disabled />
         </div>
 
         <div class="form-group">
             <label>Pradžios data</label>
-            <input asp-for="StartDate" class="form-control"></input>
+            <input asp-for="StartDate" class="form-control date-input" />
         </div>
 
         <div class="form-group">
             <label>Pabaigos Data</label>
-            <input asp-for="EndDate" class="form-control"></input>
+            <input asp-for="EndDate" class="form-control date-input"></input>
         </div>
 
         <div class="form-group">
@@ -43,7 +43,11 @@
     const reservationForm = document.getElementById('reservationForm');
 
     checkbox.addEventListener('change', () => {
-        if (checkbox.checked) reservationForm.action = "/Reservations";
-        else reservationForm.action = "/Pay";
+        for (var element of document.getElementsByClassName("date-input")) {
+            if (checkbox.checked)
+                element.setAttribute("disabled", "disabled");
+            else
+                element.removeAttribute("disabled");
+        }
     })
 </script>

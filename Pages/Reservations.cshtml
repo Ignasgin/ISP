@@ -1,5 +1,5 @@
 @page
-@model CarsModel
+@model Reservations
 @{
     ViewData["Title"] = "Rezervacijų sąrašas";
 }
@@ -101,18 +101,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>BMW</td>
-                    <td>€15,000</td>
-                    <td>11-09</td>
-                    <td>11-17</td>
-                </tr>
-                <tr>
-                    <td>Audi</td>
-                    <td>€18,000</td>
-                    <td>11-18</td>
-                    <td>11-19</td>
-                </tr>
+                @foreach (var trumpRezervacija in Model.trumpalaikesRezervacijos)
+                {
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>@trumpRezervacija.Pateikimo_Data</td>
+                        <td>@(trumpRezervacija.Pateikimo_Data.AddHours(trumpRezervacija.Laikas))</td>
+                    </tr>
+                }
+                @foreach (var rezervacija in Model.rezervacijos)
+                {
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>@rezervacija.Pradzia</td>
+                        <td>@rezervacija.Pabaiga</td>
+                    </tr>
+                }
             </tbody>
         </table>
 
