@@ -15,17 +15,7 @@ public class Reservations : PageModel
     public async Task<IActionResult> OnGetAsync()
     {
         trumpalaikesRezervacijos = await _context.Trumpalaike_Rezervacija.ToListAsync();
-        rezervacijos = await _context.Rezervacija.Select(r => new Rezervacija
-        {
-            Pradzia = r.Pradzia,
-            Pabaiga = r.Pabaiga,
-            Pateikimo_Data = r.Pateikimo_Data,
-            Paemimo_Vieta = r.Paemimo_Vieta,
-            Atidavimo_Vieta = r.Atidavimo_Vieta,
-            Id_Rezervacija = r.Id_Rezervacija,
-            Fk_Automobilis_Id_Automobilis = r.Fk_Automobilis_Id_Automobilis,
-            Fk_Naudotojas_Id_Naudotojas = r.Fk_Naudotojas_Id_Naudotojas
-        }).ToListAsync();
+        rezervacijos = await _context.Rezervacija.ToListAsync();
 
         return Page();
     }
