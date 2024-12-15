@@ -49,6 +49,24 @@
                 .WithMany()
                 .HasForeignKey(r => r.Fk_Automobilis_Id_Automobilis)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Automobilis>()
+                .HasMany(x => x.Atsiliepimai)
+                .WithOne(x => x.Automobilis)
+                .HasForeignKey(x => x.Fk_Automobilis_Id_Automobilis)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<Naudotojas>()
+                .HasMany(x => x.Atsiliepimai)
+                .WithOne(x => x.Naudotojas)
+                .HasForeignKey(x => x.Fk_Naudotojas_Id_Naudotojas)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<Naudotojas>()
+                .HasMany(x => x.Perziureti_Automobiliai)
+                .WithOne(x => x.Naudotojas)
+                .HasForeignKey(x => x.Fk_Naudotojas_Id_Naudotojas)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

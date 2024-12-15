@@ -5,40 +5,58 @@
     ViewData["Title"] = "Automobilis";
 }
 
+<style>
+    .star-rating .star {
+        font-size: 30px;
+        color: #ccc; /* Default star color */
+        cursor: pointer; /* Ensures the pointer changes on hover */
+        transition: color 0.3s ease;
+    }
+
+    .star-rating .star.selected,
+    .star-rating .star.hovered {
+        color: #ffc107; /* Selected or hovered star color */
+    }
+
+    .star-color {
+        color: #ffc107;
+    }
+</style>
+
 <div class="container w-100 mt-5">
     <div class="row bg-light py-4">
-        <div class="col-8">
-            <img class="img-fluid" src="../images/@(Model.automobilis.Marke).jpg" alt="car image">
-        </div>
         <div class="col-4 ps-5">
             <dl class="row fs-5">
                 <dt class="col-sm-5">Markė:</dt>
-                <dd class="col-sm-7">@Model.automobilis.Modelis</dd>
+                <dd class="col-sm-7">@Model.Automobilis.Marke</dd>
 
+                <dt class="col-sm-5">Modelis:</dt>
+                <dd class="col-sm-7">@Model.Automobilis.Modelis</dd>
+                
                 <dt class="col-sm-5">Metai:</dt>
-                <dd class="col-sm-7">@Model.automobilis.Metai</dd>
+                <dd class="col-sm-7">@Model.Automobilis.Metai</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Variklio tūris:</dt>
-                <dd class="col-sm-7">@Model.automobilis.Litrazas</dd>
+                <dd class="col-sm-7">@Model.Automobilis.Litrazas</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Kuro tipas:</dt>
-                <dd class="col-sm-7">@Model.automobilis.Kuro_Tipas</dd>
+                <dd class="col-sm-7">@Model.Automobilis.Kuro_Tipas</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Rida:</dt>
-                <dd class="col-sm-7">@Model.automobilis.Rida km</dd>
+                <dd class="col-sm-7">@Model.Automobilis.Rida km</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Įvertinimas:</dt>
-                <dd class="col-sm-7">@Model.automobilis.Ivertinimu_Vidurkis</dd>
+                <dd class="col-sm-7">@Model.Automobilis.Ivertinimu_Vidurkis</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Statusas:</dt>
-                <dd class="col-sm-7">@Model.automobilis.Statusas</dd>
+                <dd class="col-sm-7">@Model.Automobilis.Statusas</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Kaina:</dt>
-                <dd class="col-sm-7">@Model.automobilis.Kaina €</dd>
+                <dd class="col-sm-7">@Model.Automobilis.Kaina €</dd>
 
                 <dt class="col-sm-5 font-weight-bold">Draudimas:</dt>
-                @if (Model.automobilis.Draudimai != null && Model.automobilis.Draudimai.Any()) {
-                    @foreach (var insurance in Model.automobilis.Draudimai) {
+                @if (Model.Automobilis.Draudimai != null && Model.Automobilis.Draudimai.Any()) {
+                    @foreach (var insurance in Model.Automobilis.Draudimai) {
                         <dd class="col-sm-7">@insurance.Draudimo_Tipas</dd>
                     }
                 }
@@ -59,29 +77,91 @@
         <div class="col-12">
             <div>
                 <div class="card-body p-4">
-                    <div data-mdb-input-init class="mb-4">
-                        <input type="text" id="addANote" class="form-control" placeholder="Rašyti komentarą"/>
-                        <label class="form-label btn btn-primary mt-2" for="addANote">Pateikti</label>
-                    </div>
-
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <p>Komentaras</p>
-
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row align-items-center">
-                                    <img src="https://educationalvoice.co.uk/wp-content/uploads/2024/05/Default_Careers_in_Animation_1.jpg" alt="avatar" width="25"
-                                         height="25" class="rounded-circle"/>
-                                    <p class="small mb-0 ms-2">Martha</p>
-                                </div>
-                                <div class="d-flex flex-row align-items-center">
-                                    <p class="small text-muted mb-0">❤️</p>
-                                    <i class="far fa-thumbs-up mx-2 fa-xs text-body" style="margin-top: -0.16rem;"></i>
-                                    <p class="small text-muted mb-0">3</p>
-                                </div>
+                    
+                 
+                        <form id="reviewForm" method="post" asp-page-handler="AddReview" class="needs-validation @(await Model.IsUserBoughtCarAndIsFirstComment() ? "" : "d-none")">
+                            <input type="hidden" id="isEditing" name="IsEditing" value="false" />
+                            <div>
+                                <span asp-validation-for="Atsiliepimas.Komentaras" class="text-danger"></span>
                             </div>
-                        </div>
-                    </div>
+                            <input type="hidden" id="reviewId" name="Atsiliepimas.Id_Atsiliepimas" value="0"/>
+                            <fieldset class="star-rating">
+                                <legend>Įvertinkite:</legend>
+                                <input type="hidden" name="Atsiliepimas.Ivertinimas" id="Rating" value="0"/>
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </fieldset>
+
+                            <div data-mdb-input-init class="my-3">
+                                <textarea id="reviewComment" name="Atsiliepimas.Komentaras" class="form-control" placeholder="Rašyti komentarą" required></textarea>
+                                <div class="invalid-feedback">
+                                    Komentaras yra privalomas.
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input type="checkbox" class="form-check-input" id="recommendCheckbox" name="Atsiliepimas.Rekomenduotu_Kitiems" value="true"/>
+                                    <label class="form-check-label" for="recommendCheckbox">Ar rekomenduotumėte šį automobilį kitiems klientams?</label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-3">Pateikti</button>
+                            </div>
+                        </form>
+
+                    
+
+                    @if (Model.Atsiliepimai != null && Model.Atsiliepimai.Count != 0)
+                    {
+                        foreach (var atsiliepimas in Model.Atsiliepimai)
+                        {
+                            <div class="card mb-4">
+
+                                <div class="card-body">
+                                    <p>@atsiliepimas.Komentaras</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <p class="small mb-0">
+                                                @atsiliepimas.Naudotojas?.Vardas
+                                                @if (atsiliepimas.Fk_Naudotojas_Id_Naudotojas == Model.CurrentUser.Id_Naudotojas)
+                                                {
+                                                    <button class="btn text-warning mb-1" type="button"
+                                                            onclick="populateForm(@atsiliepimas.Id_Atsiliepimas, '@atsiliepimas.Komentaras', @atsiliepimas.Ivertinimas, @atsiliepimas.Rekomenduotu_Kitiems.ToString().ToLower())">
+                                                        <small>Redaguoti</small>
+                                                    </button>
+                                                }
+                                                <span
+                                                    class="d-block">@atsiliepimas.Data.ToString("yyyy-MM-dd")
+                                                </span>
+                                            </p>
+
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center">
+                                            <p class="small text-muted mb-0">
+                                                @if (atsiliepimas.Rekomenduotu_Kitiems)
+                                                {
+                                                    <span>Klientas rekomenduoja</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Klientas nerekomenduoja</span>
+                                                }
+                                                @atsiliepimas.Ivertinimas <span class="star star-color">★</span> / 5
+                                                <span class="star star-color">★</span>
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        }
+                    }
+
 
                 </div>
             </div>
@@ -90,35 +170,126 @@
 
     <div class="row py-3 my-5 bg-light">
         <h2 class="text-center pb-3 fs-3 fw-bolder">Asmeninės rekomendacijos</h2>
-        @foreach (var car in new[] { "BMW", "AUDI", "MERCEDES" })
+        @foreach (var car in await @Model.GetTop3HistoryCarsAsync())
         {
-            string location = "../images/" + car + ".jpg";
-            <div class="col-4">
-                <img class="img-fluid hover-expand" src=@location alt="car image">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <a href="/Car/@car.Id_Automobilis" class="text-decoration-none text-dark">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-1">@car.Marke</h5>
+                            <p class="card-text mb-2">@car.Modelis</p>
+                            <p class="text-muted small">
+                                <strong>Įvertinimas:</strong> @car.Ivertinimu_Vidurkis <span class="star-color">★</span>
+                            </p>
+                        </div>
+                    </a>
+                </div>
             </div>
         }
     </div>
 
     <div class="row py-3 my-5 bg-light">
-        <h2 class="text-center pb-3 fs-3 fw-bolder">Panašus automobiliai</h2>
-        @foreach (var car in new[] { "BMW", "AUDI", "MERCEDES" })
+        <h2 class="text-center pb-3 fs-3 fw-bolder">Panašūs automobiliai</h2>
+        @foreach (var car in await @Model.GetTop3SimilarCarsAsync())
         {
-            string location = "../images/" + car + ".jpg";
-            <div class="col-4">
-                <img class="img-fluid hover-expand" src=@location alt="car image">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <a href="/Car/@car.Id_Automobilis" class="text-decoration-none text-dark">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-1">@car.Marke</h5>
+                            <p class="card-text mb-2">@car.Modelis</p>
+                            <p class="text-muted small">
+                                <strong>Įvertinimas:</strong> @car.Ivertinimu_Vidurkis <span class="star-color">★</span>
+                            </p>
+                        </div>
+                    </a>
+                </div>
             </div>
         }
     </div>
 
     <div class="row py-3 my-5 bg-light">
         <h2 class="text-center pb-3 fs-3 fw-bolder">Populiariausi automobiliai</h2>
-        @foreach (var car in new[] { "BMW", "AUDI", "MERCEDES" })
+        @foreach (var car in await @Model.GetTop3CarsByRatingAsync())
         {
-            string location = "../images/" + car + ".jpg";
-            <div class="col-4">
-                <img class="img-fluid hover-expand" src=@location alt="car image">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <a href="/Car/@car.Id_Automobilis" class="text-decoration-none text-dark">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-1">@car.Marke</h5>
+                            <p class="card-text mb-2">@car.Modelis</p>
+                            <p class="text-muted small">
+                                <strong>Įvertinimas:</strong> @car.Ivertinimu_Vidurkis <span class="star-color">★</span>
+                            </p>
+                        </div>
+                    </a>
+                </div>
             </div>
         }
     </div>
 
 </div>
+
+<script>
+    
+    const stars = document.querySelectorAll('.star-rating .star');
+    const ratingInput = document.getElementById('Rating');
+
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            ratingInput.value = index + 1;
+            stars.forEach((s) => s.classList.remove('selected'));
+
+            for (let i = 0; i <= index; i++) {
+                stars[i].classList.add('selected');
+            }
+
+            console.log(`Selected Rating: ${index + 1}`);
+        });
+
+        star.addEventListener('mouseenter', () => {
+            stars.forEach((s) => s.classList.remove('hovered'));
+
+            for (let i = 0; i <= index; i++) {
+                stars[i].classList.add('hovered');
+            }
+        });
+
+        star.addEventListener('mouseleave', () => {
+            stars.forEach((s) => s.classList.remove('hovered'));
+        });
+    });
+
+
+    function populateForm(id, comment, rating, recommend) {
+        console.log("populateForm called with:", { id, comment, rating, recommend });
+        document.getElementById("reviewForm").classList.remove("d-none");
+        document.getElementById("reviewForm").classList.add("d-block");
+        // Set the form handler to "EditReview"
+        const form = document.getElementById('reviewForm');
+        const currentAction = form.getAttribute('action');
+        const updatedAction = currentAction.replace(/AddReview/, 'EditReview'); 
+        form.setAttribute('action', updatedAction);
+        // Populate the form fields
+        document.getElementById('reviewId').value = id;
+        document.getElementById('reviewComment').value = comment;
+        document.getElementById('Rating').value = rating;
+
+        // Set the recommend checkbox
+        document.getElementById('recommendCheckbox').checked = recommend === "true" || recommend === true;
+
+        // Highlight the stars for the rating
+        const stars = document.querySelectorAll('.star-rating .star');
+        stars.forEach((star, index) => {
+            star.classList.remove('selected');
+            if (index < rating) {
+                star.classList.add('selected');
+            }
+        });
+
+        // Scroll to the form for convenience
+        form.scrollIntoView({ behavior: 'smooth' });
+    }
+
+
+</script>

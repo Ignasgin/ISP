@@ -16,7 +16,8 @@ namespace ISP.Data
 
         
 
-
+        public Naudotojas Naudotojas { get; set; }
+        public Automobilis Automobilis { get; set; }
         public int Fk_Naudotojas_Id_Naudotojas { get; set; }
         public int Fk_Automobilis_Id_Automobilis { get; set; }
     }
@@ -75,6 +76,8 @@ namespace ISP.Data
 
         public ICollection<Draudimas>? Draudimai { get; set; }
         public ICollection<Perziuretas_Automobilis>? Perziuretas_Automobilis { get; set; }
+        
+        public List<Atsiliepimas>? Atsiliepimai { get; set; }
     }
 
     public class Draudimas
@@ -108,6 +111,10 @@ namespace ISP.Data
 
         [Key]
         public int Id_Naudotojas { get; set; }
+        
+        public List<Atsiliepimas>? Atsiliepimai { get; set; }
+        
+        public List<Perziuretas_Automobilis>? Perziureti_Automobiliai { get; set; }
     }
 
     public class Perziuretas_Automobilis
@@ -121,6 +128,7 @@ namespace ISP.Data
 
         public int Fk_Automobilis_Id_Automobilis { get; set; }
 
+        public Naudotojas Naudotojas { get; set; }
         public int Fk_Naudotojas_Id_Naudotojas { get; set; }
         public Automobilis Automobilis { get; set; }
 
