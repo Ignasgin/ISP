@@ -1,0 +1,17 @@
+@page "{id:int}"
+@model ISP.Pages.Services.DeleteServiceModel
+
+@{
+    ViewData["Title"] = "Ištrinti servisa";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1><br /#333>
+
+    <h3>Ar tikrai norite ištrinti servisą:  <strong>@Model.Servisas?.Pavadinimas</strong>?</h3>
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Ištrinti</button>
+        <a href="/Services/" class="btn btn-secondary">Atšaukti</a>
+    </form>
+</div>
