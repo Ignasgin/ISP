@@ -48,6 +48,17 @@ namespace ISP.Pages
             _context.Rezervacija.Add(rezervacija);
             await _context.SaveChangesAsync();
 
+            var tempAuto = await _context.Automobilis.FirstOrDefaultAsync(a => a.Id_Automobilis == Id);
+
+            if (tempAuto != null)
+            {
+                // Update the status column
+                tempAuto.Statusas = "Rezervuota"; // Replace "NewStatus" with the desired value
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+            }
+
             return RedirectToPage("/Reservations");
         }
     }
