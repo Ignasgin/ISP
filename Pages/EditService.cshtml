@@ -1,0 +1,49 @@
+@page "{id:int}"
+@model ISP.Pages.Services.EditServiceModel
+@{
+    ViewData["Title"] = "Redaguoti servisą";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label>Pavadinimas</label>
+            <input asp-for="Servisas.Pavadinimas" class="form-control" />
+            <span asp-validation-for="Servisas.Pavadinimas" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Adresas</label>
+            <input asp-for="Servisas.Adresas" class="form-control" />
+            <span asp-validation-for="Servisas.Adresas" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Aprašymas</label>
+            <textarea asp-for="Servisas.Aprasymas" class="form-control"></textarea>
+            <span asp-validation-for="Servisas.Aprasymas" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Išsaugoti pakeitimus</button>
+        <a href="/Services" class="btn btn-secondary">Atšaukti</a>
+    </form>
+
+    @if (!ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            Prašome ištaisyti klaidas formoje.
+            <ul>
+                @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
