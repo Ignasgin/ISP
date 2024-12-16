@@ -1,5 +1,5 @@
 ﻿@page
-@model ISP.Pages.AddServiceModel
+@model AddServiceModel
 @{
     ViewData["Title"] = "Pridėti servisą";
 }
@@ -7,65 +7,81 @@
 <div class="container">
     <h1>@ViewData["Title"]</h1>
 
-    <form method="post" action="/AddService" id="registrationForm">
+    <form method="post">
         <div class="form-group">
             <label>Pavadinimas</label>
-            <textarea class="form-control"></textarea>
+            <textarea asp-for="Service.Pavadinimas" class="form-control"></textarea>
+            <span asp-validation-for="Service.Pavadinimas" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label>Adresas</label>
-            <textarea class="form-control"></textarea>
+            <textarea asp-for="Service.Adresas" class="form-control"></textarea>
+            <span asp-validation-for="Service.Adresas" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label>Miestas</label>
-            <textarea class="form-control"></textarea>
+            <label>Aprašymas</label>
+            <textarea asp-for="Service.Aprasymas" class="form-control"></textarea>
+            <span asp-validation-for="Service.Aprasymas" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
-            <label>Tel. nr.</label>
-            <textarea class="form-control"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>El. paštas</label>
-            <textarea class="form-control"></textarea>
-        </div>
-
-        <br>
+        <br />
         <button type="button" class="btn btn-primary mb-3" onclick="addInputFields()">Pridėti paslaugą</button>
 
-        <div id="buttonSection" class="mt-4">
-            <a href="/Services" class="btn btn-secondary">Išsaugoti</a>
-            <a href="/Services" class="btn btn-secondary">Atšaukti</a>
-        </div>
+        <div id="serviceFields"></div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Išsaugoti servisą</button>
+        <a href="/Services" class="btn btn-secondary">Atšaukti</a>
     </form>
+
+    @if (!ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            Prašome pataisyti klaidas formoje.
+            <ul>
+                @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
 </div>
 
-<script>
-    function addInputFields() {
-        const form = document.getElementById("registrationForm");
+@section Scripts {
+    <script>
+        function addInputFields() {
+            const container = document.getElementById("serviceFields");
 
-        const row = document.createElement("div");
-        row.classList.add("row", "form-group", "mb-3");
+            const row = document.createElement("div");
+            row.classList.add("form-row", "mb-3");
 
-        const serviceCol = document.createElement("div");
-        serviceCol.classList.add("col");
-        serviceCol.innerHTML = `
-            <label>Paslauga</label>
-            <input type="text" class="form-control" name="service[]" placeholder="Paslauga">
-        `;
+            const serviceCol = document.createElement("div");
+            serviceCol.classList.add("col");
+            serviceCol.innerHTML = `
+                <label>Paslauga</label>
+                <input type="text" name="Services" class="form-control" placeholder="Paslauga" required />
+            `;
+            const priceCol = document.createElement("div");
+            priceCol.classList.add("col");
+            priceCol.innerHTML = `
+                <label>Kaina</label>
+                <input type="number" name="Prices" class="form-control" placeholder="Kaina" required />
+            `;
+            const timeCol = document.createElement("div");
+            timeCol.classList.add("col");
+            timeCol.innerHTML = `
+                <label>Laikas</label>
+                <input type="number" name="Times" class="form-control" placeholder="Laikas" required />
+            `;
 
-        const priceCol = document.createElement("div");
-        priceCol.classList.add("col");
-        priceCol.innerHTML = `
-            <label>Kaina</label>
-            <input type="number" class="form-control" name="price[]" placeholder="Kaina">
-        `;
-        row.appendChild(serviceCol);
-        row.appendChild(priceCol);
-        const buttonSection = document.getElementById("buttonSection");
-        form.insertBefore(row, buttonSection);
-    }
-</script>
+            row.appendChild(serviceCol);
+            row.appendChild(priceCol);
+            row.appendChild(timeCol);
+
+            container.appendChild(row);
+        }
+    </script>
+}

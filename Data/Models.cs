@@ -172,6 +172,30 @@ namespace ISP.Data
 
         public Automobilis Automobilis { get; set; }
     }
+    // ----------------------------------------- Servisai
+    public class Servisas{
+        public string Pavadinimas {get;set;}
+        public string Aprasymas {get;set;}
+        public string Adresas{get;set;}
+        public int Id_Servisas{get;set;}
+        public List<Servisu_paslaugos> ServicePaslaugos { get; set; } = new List<Servisu_paslaugos>();
+    }
+    public class Servisu_paslaugos
+    {
+        public int fk_Servisasid_Servisas { get; set; }
+        public Servisas Service { get; set; }
 
+        public int fk_Paslaugaid_Paslauga { get; set; }
+        public Paslauga Paslauga { get; set; }
+    }
+    public class Paslauga
+    {
+        public int id_Paslauga { get; set; }
+        public string Pavadinimas { get; set; }
+        public double kaina { get; set; }
+        public int laikas {get;set;}
+        public ICollection<Servisu_paslaugos> ServicePaslaugos { get; set; }
+    }
+    // -------------------- Servisu pabaiga
 
 }

@@ -1,8 +1,10 @@
 ﻿@page
-@model ServicesModel
+@model ISP.Pages.ServicesModel
+
 @{
     ViewData["Title"] = "Servisų sąrašas";
 }
+
 <style>
     h1 {
         font-size: 2rem;
@@ -19,25 +21,19 @@
         color: #333;
     }
 
-        .action-links a:hover {
-            text-decoration: underline;
-        }
+    .action-links a:hover {
+        text-decoration: underline;
+    }
 
     .new-car-link {
         display: flex;
         justify-content: flex-start;
         margin-top: 20px;
     }
-
-    
-
-   
 </style>
 
 <body>
-
     <div class="container-fluid">
-
         <h1>@ViewData["Title"]</h1>
 
         <br />
@@ -49,10 +45,10 @@
                 <div class="col-3">
                     <select id="cars" class="form-select">
                         <option value="" selected disabled>Pasirinkite miestą</option>
-                        <option value="volvo">Kaunas</option>
-                        <option value="saab">Vilnius</option>
-                        <option value="opel">Šiauliai</option>
-                        <option value="audi">Klaipėda</option>
+                        <option value="Kaunas">Kaunas</option>
+                        <option value="Vilnius">Vilnius</option>
+                        <option value="Šiauliai">Šiauliai</option>
+                        <option value="Klaipėda">Klaipėda</option>
                     </select>
                 </div>
                 <div class="col-2">
@@ -61,42 +57,40 @@
             </div>
         </div>
 
-
         <table cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
             <thead>
                 <tr>
                     <th style="background-color: #827a78;border: 2px solid #333;">Pavadinimas</th>
                     <th style="background-color: #827a78;border: 2px solid #333;">Adresas</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Miestas</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">El. paštas</th>
-                    <th style="background-color: #827a78;border: 2px solid #333;">Tel. nr.</th>
+                    <th style="background-color: #827a78;border: 2px solid #333;">Aprašymas</th>
                     <th style="background-color: #827a78;border: 2px solid #333;">Atliekamos paslaugos</th>
                     <th style="background-color: #827a78;border: 2px solid #333;">Registracija</th>
                     <th style="background-color: #827a78;border: 2px solid #333;">Veiksmai</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="border: 2px solid #333;">Melga</td>
-                    <td style="border: 2px solid #333;">Mituvos g. 7</td>
-                    <td style="border: 2px solid #333;">Kaunas</td>
-                    <td style="border: 2px solid #333;">info@melga.lt</td>
-                    <td style="border: 2px solid #333;">+37063123123</td>
-                    <td style="border: 2px solid #333;">Padangų montavimas <br> Ratlankių tiesinimas</td>
-                    <td style="border: 2px solid #333;"><a href="/ServiceRegistration" class="btn btn-primary">Registruotis</a></td>
-                    <td style="border: 2px solid #333;">
-                        <a href="?" class="btn btn-warning">Redaguoti</a>
-                        <a href="?" class="btn btn-danger">Šalinti</a>
-                    </td>
-                </tr>
+                @foreach (var service in Model.Servisai)
+                {
+                    <tr>
+                        <td style="border: 2px solid #333;">@service.Pavadinimas</td>
+                        <td style="border: 2px solid #333;">@service.Adresas</td>
+                        <td style="border: 2px solid #333;">@service.Aprasymas</td>
+                        <td style="border: 2px solid #333;">
+                            @foreach (var paslauga in service.ServicePaslaugos)
+                            {
+                                <p>@paslauga.Paslauga.Pavadinimas</p>
+                            }
+                        </td>
+                        <td style="border: 2px solid #333;">
+                            <a href="/ServiceRegistration" class="btn btn-primary">Registruotis</a>
+                        </td>
+                        <td style="border: 2px solid #333;">
+                            <a href="/Services/EditService/@service.Id_Servisas" class="btn btn-warning">Redaguoti</a>
+                            <a href="/Services/DeleteService/@service.Id_Servisas" class="btn btn-danger">Šalinti</a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
-
     </div>
-
-
-
-   
-
 </body>

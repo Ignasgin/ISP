@@ -18,6 +18,9 @@
         public DbSet<Perziuretas_Automobilis> Perziuretas_Automobilis { get; set; }
         public DbSet<Rezervacija> Rezervacija { get; set; }
         public DbSet<Trumpalaike_Rezervacija> Trumpalaike_Rezervacija { get; set; }
+        public DbSet<Servisas> Servisas {get;set;}
+        public DbSet<Paslauga> Paslauga {get;set;}
+        public DbSet<Servisu_paslaugos> Servisu_paslaugos{get;set;}
 
 
 
@@ -67,6 +70,28 @@
                 .WithOne(x => x.Naudotojas)
                 .HasForeignKey(x => x.Fk_Naudotojas_Id_Naudotojas)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Servisu_paslaugos>()
+        .HasKey(sp => new { sp.fk_Servisasid_Servisas, sp.fk_Paslaugaid_Paslauga });
+
+    // Nustatome santykį tarp Servisas ir Servisu_paslaugos
+    modelBuilder.Entity<Servisu_paslaugos>()
+        .HasOne(sp => sp.Service) // Servisas
+        .WithMany(s => s.ServicePaslaugos) // Servisas turi daug paslaugų
+        .HasForeignKey(sp => sp.fk_Servisasid_Servisas); // Naudojame fk_Servisasid_Servisas kaip užsienio raktą
+
+    // Nustatome santykį tarp Paslauga ir Servisu_paslaugos
+    modelBuilder.Entity<Servisu_paslaugos>()
+        .HasOne(sp => sp.Paslauga) // Paslauga
+        .WithMany(p => p.ServicePaslaugos) // Paslauga turi daug servisų per tarpinę lentelę
+        .HasForeignKey(sp => sp.fk_Paslaugaid_Paslauga); // Naudojame fk_Paslaugaid_Paslauga kaip užsienio raktą
+
+    // Nustatome pirminius raktus Paslauga ir Servisas lentelėms
+    modelBuilder.Entity<Paslauga>()
+        .HasKey(p => p.id_Paslauga);
+
+    modelBuilder.Entity<Servisas>()
+        .HasKey(s => s.Id_Servisas);
         }
     }
 }
