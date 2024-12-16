@@ -52,8 +52,8 @@ public class AddServiceModel : PageModel
             // Sukurti nuorodą tarp serviso ir paslaugos
             var servisuPaslaugos = new Servisu_paslaugos
             {
-                fk_Servisasid_Servisas = Service.Id_Servisas,
-                fk_Paslaugaid_Paslauga = paslauga.id_Paslauga
+                fk_Servisas_id_Servisas = Service.Id_Servisas,
+                fk_Paslauga_id_Paslauga = paslauga.id_Paslauga
             };
             _context.Servisu_paslaugos.Add(servisuPaslaugos);
         }

@@ -72,19 +72,19 @@
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Servisu_paslaugos>()
-        .HasKey(sp => new { sp.fk_Servisasid_Servisas, sp.fk_Paslaugaid_Paslauga });
+        .HasKey(sp => new { sp.fk_Servisas_id_Servisas, sp.fk_Paslauga_id_Paslauga });
 
     // Nustatome santykį tarp Servisas ir Servisu_paslaugos
     modelBuilder.Entity<Servisu_paslaugos>()
         .HasOne(sp => sp.Service) // Servisas
         .WithMany(s => s.ServicePaslaugos) // Servisas turi daug paslaugų
-        .HasForeignKey(sp => sp.fk_Servisasid_Servisas); // Naudojame fk_Servisasid_Servisas kaip užsienio raktą
+        .HasForeignKey(sp => sp.fk_Servisas_id_Servisas); // Naudojame fk_Servisasid_Servisas kaip užsienio raktą
 
     // Nustatome santykį tarp Paslauga ir Servisu_paslaugos
     modelBuilder.Entity<Servisu_paslaugos>()
         .HasOne(sp => sp.Paslauga) // Paslauga
         .WithMany(p => p.ServicePaslaugos) // Paslauga turi daug servisų per tarpinę lentelę
-        .HasForeignKey(sp => sp.fk_Paslaugaid_Paslauga); // Naudojame fk_Paslaugaid_Paslauga kaip užsienio raktą
+        .HasForeignKey(sp => sp.fk_Paslauga_id_Paslauga); // Naudojame fk_Paslaugaid_Paslauga kaip užsienio raktą
 
     // Nustatome pirminius raktus Paslauga ir Servisas lentelėms
     modelBuilder.Entity<Paslauga>()

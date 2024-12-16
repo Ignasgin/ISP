@@ -182,10 +182,10 @@ namespace ISP.Data
     }
     public class Servisu_paslaugos
     {
-        public int fk_Servisasid_Servisas { get; set; }
+        public int fk_Servisas_id_Servisas { get; set; }
         public Servisas Service { get; set; }
 
-        public int fk_Paslaugaid_Paslauga { get; set; }
+        public int fk_Paslauga_id_Paslauga { get; set; }
         public Paslauga Paslauga { get; set; }
     }
     public class Paslauga
