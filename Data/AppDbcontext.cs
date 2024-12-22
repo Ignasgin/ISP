@@ -21,6 +21,7 @@
         public DbSet<Servisas> Servisas {get;set;}
         public DbSet<Paslauga> Paslauga {get;set;}
         public DbSet<Servisu_paslaugos> Servisu_paslaugos{get;set;}
+        public DbSet<Pranesimas> Pranesimas { get; set; }
 
 
 
@@ -69,6 +70,12 @@
                 .HasMany(x => x.Perziureti_Automobiliai)
                 .WithOne(x => x.Naudotojas)
                 .HasForeignKey(x => x.Fk_Naudotojas_Id_Naudotojas)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Naudotojas>()
+                .HasMany(x => x.pranesimas)
+                .WithOne(x => x.naudotojas)
+                .HasForeignKey(x => x.fk_Naudotojas_id_Naudotojas)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Servisu_paslaugos>()

@@ -111,7 +111,9 @@ namespace ISP.Data
 
         [Key]
         public int Id_Naudotojas { get; set; }
-        
+
+        public List<Pranesimas>? pranesimas { get; set; }
+
         public List<Atsiliepimas>? Atsiliepimai { get; set; }
         
         public List<Perziuretas_Automobilis>? Perziureti_Automobiliai { get; set; }
@@ -198,4 +200,21 @@ namespace ISP.Data
     }
     // -------------------- Servisu pabaiga
 
+
+    public class Pranesimas
+    {
+        [Key]
+        public int id_Pranesimas { get; set; }
+
+
+        public DateTime data { get; set; }
+
+        public string tipas { get; set; }
+
+        public string tekstas { get; set; }
+
+        // Foreign Key relationships
+        public int fk_Naudotojas_id_Naudotojas { get; set; }
+        public Naudotojas naudotojas { get; set; }
+    }
 }

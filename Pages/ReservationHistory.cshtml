@@ -1,0 +1,132 @@
+﻿@page
+@model ISP.Pages.ReservationHistoryModel
+@{
+    ViewData["Title"] = "Rezervacijų istorija";
+}
+<style>
+    h1 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: left;
+        align-items: start;
+        margin: 0;
+    }
+
+    .action-links a {
+        text-decoration: none;
+        color: #333;
+    }
+
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+
+    .new-car-link {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+    }
+
+    /* Modal styling */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #333;
+        width: 300px;
+        text-align: center;
+    }
+
+    .modal-button {
+        margin: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .confirm {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+    }
+
+    .cancel {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    table tr th {
+        background-color: #827a78;
+    }
+
+    table th,
+    table td {
+        border: 2px solid #333;
+    }
+</style>
+
+<body>
+
+    <div class="container-fluid">
+
+        <h1>@ViewData["Title"]</h1>
+
+
+        @if (Model.Rezervacija.Any())
+        {
+            <table cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>Rezervacijos nr.</th>
+                        <th>Pradzia</th>
+                        <th>Pabaiga</th>
+                        <th>Pateikimo data</th>
+                        <th>Paėmimo vieta</th>
+                        <th>Gražinimo vieta</th>
+                        <th>Automobilis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var message in Model.Rezervacija)
+                    {
+                        <tr>
+                            <td>@message.Id_Rezervacija</td>
+                            <td>@message.Pradzia</td>
+                            <td>@message.Pabaiga</td>
+                            <td>@message.Pateikimo_Data</td>
+                            <td>@message.Paemimo_Vieta</td>
+                            <td>@message.Atidavimo_Vieta</td>
+                            <td>@message.Automobilis.Marke</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Rezervacijų neturite</p>
+        }
+
+    </div>
+
+
+</body>

@@ -1,0 +1,45 @@
+﻿@page
+@model ISP.Pages.LoginModel
+@using ISP.Data
+@inject AppDbContext _context
+@{
+    ViewData["Title"] = "Prisijungimas";
+}
+
+<div class="container">
+    <h1>Prisijungimas</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label for="Vardas">Vardas</label>
+            <input asp-for="User.Vardas" class="form-control" id="Vardas" />
+            <span asp-validation-for="User.Vardas" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Pavarde">Pavardė</label>
+            <input asp-for="User.Pavarde" class="form-control" id="Pavarde" />
+            <span asp-validation-for="User.Pavarde" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Asmens_Kodas">Asmens kodas</label>
+            <input asp-for="User.Asmens_Kodas" class="form-control" id="Asmens_Kodas" />
+            <span asp-validation-for="User.Asmens_Kodas" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Slaptazodis">Slaptažodis</label>
+            <input asp-for="User.Slaptazodis" class="form-control" type="password" id="Slaptazodis" />
+            <span asp-validation-for="User.Slaptazodis" class="text-danger"></span>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Prisijunkite</button>
+        <a href="/Index" class="btn btn-secondary">Atšaukti</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

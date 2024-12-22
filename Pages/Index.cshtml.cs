@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace ISP.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BaseModel
     {
-        private readonly AppDbContext _context;
-
-        public IndexModel(AppDbContext context)
+        public IndexModel(AppDbContext context) : base(context)
         {
-            _context = context;
+            
         }
 
         public IList<Atsiliepimas> Atsiliepimas { get; set; }
